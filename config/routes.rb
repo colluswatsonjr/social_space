@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :spaces
   resources :follows
   resources :users
   get "/me", to: "users#show"

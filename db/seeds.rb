@@ -17,5 +17,9 @@ Follow.create(follower_id: 1, followee_id:4)
 Follow.create(follower_id: 2, followee_id:1)
 Follow.create(follower_id: 2, followee_id:3)
 Follow.create(follower_id: 2, followee_id:4)
+Space.create(title:'Sun', bio:'Im really hot', creator_id:1)
+Space.create(title:'Earth', bio:'Im kinda thirsty', creator_id:1)
+Space.create(title:'Moon', bio:'Great, another crator', creator_id:1)
+
 
 puts "✅ Done seeding"
