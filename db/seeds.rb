@@ -11,5 +11,11 @@ User.create( username: 'watsupnxt', fname: 'Collus', lname: 'Watson', bio: 'Livi
 User.create(username: 'guest1', fname: 'guest', lname: '1', bio: '1111111 guest 1111111', password: 'asdf')
 User.create(username: 'guest2', fname: 'guest', lname: '2', bio: '2222222 guest 2222222', password: 'asdf')
 User.create(username: 'guest3', fname: 'guest', lname: '3', bio: '3333333 guest 3333333', password: 'asdf')
+Follow.create(follower_id: 1, followee_id:2)
+Follow.create(follower_id: 1, followee_id:3)
+Follow.create(follower_id: 1, followee_id:4)
+Follow.create(follower_id: 2, followee_id:1)
+Follow.create(follower_id: 2, followee_id:3)
+Follow.create(follower_id: 2, followee_id:4)
 
 puts "✅ Done seeding"

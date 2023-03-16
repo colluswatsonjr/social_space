@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     def create
         user = User.create(user_params)
         if user.valid?
-            # session[:user_id] = user.id
+            session[:user_id] = user.id
             render json: user, status: :created
         else
             render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
@@ -40,6 +40,18 @@ class UsersController < ApplicationController
             render json: {error:"User Not Found"}, status: 404
         end
     end
+
+    # def follow
+    #     user = User.find(params[:id])
+    #     User.find(session[:user_id]).followees << user
+    #     render json: User.find(session[:user_id])
+    #   end
+      
+    #   def unfollow
+    #     user = User.find(params[:id])
+    #     User.find(session[:user_id]).followed_users.find_by(followee_id: user.id).destroy
+    #     render json: User.find(session[:user_id])
+    #   end
 
     private
 
