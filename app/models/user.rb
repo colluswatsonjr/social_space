@@ -8,4 +8,9 @@ class User < ApplicationRecord
     has_many :followers, through: :following_users
 
     has_many :spaces, foreign_key: :creator, class_name: 'Space', dependent: :destroy
+        
+    has_many :posts, dependent: :destroy
+    has_many :spaces, through: :posts
+
+    has_many :subscribes
 end
