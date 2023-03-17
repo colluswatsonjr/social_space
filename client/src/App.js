@@ -8,6 +8,7 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import Profile from './pages/Profile';
 import EditForm from './components/EditForm';
+import LoginRegister from './pages/LoginRegister';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -40,16 +41,19 @@ function App() {
     setUser(null)
   };
 
-  console.log(user)
-
   return (
     <UserContext.Provider value={{ user, login, logout }}>
       <Router>
         <div className="App">
-          Hello World!<br />
           {user ? <>Logged in: {user.username}<br /><button onClick={handleLogout}>Logout</button></> : `Logged out:`}
-          <LoginForm />
-          <RegisterForm />
+          {user ?
+            <>
+            </>
+            :
+            <>
+            </>
+          }
+          <LoginRegister />
           <Profile />
           {/* <EditForm /> */}
         </div>
