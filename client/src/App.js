@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { UserContext } from './context/UserContext';
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import './stylesheets/App.css'
 
-import LoginForm from './components/LoginForm';
-import RegisterForm from './components/RegisterForm';
 import Profile from './pages/Profile';
 import EditForm from './components/EditForm';
 import LoginRegister from './pages/LoginRegister';
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -50,10 +49,11 @@ function App() {
             <>
             </>
             :
-            <>
-            </>
+            <Routes>
+              <Route path='/' element={<LoginRegister />} />
+              <Route path='*' element={<PageNotFound />} />
+            </Routes>
           }
-          <LoginRegister />
           <Profile />
           {/* <EditForm /> */}
         </div>
