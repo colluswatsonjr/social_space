@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # resources :users
   get "/me", to: "users#show"
   post "/register", to: "users#create"
+  patch "/edit_user", to: "users#update"
 
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"

@@ -7,6 +7,7 @@ import './stylesheets/App.css'
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import Profile from './pages/Profile';
+import EditForm from './components/EditForm';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -25,11 +26,11 @@ function App() {
 
   function handleLogout() {
     fetch("/logout", { method: "DELETE" }).then((r) => {
-        if (r.ok) {
-            setUser(null)
-        }
+      if (r.ok) {
+        setUser(null)
+      }
     });
-}
+  }
 
   const login = (user) => {
     setUser(user)
@@ -50,6 +51,7 @@ function App() {
           <LoginForm />
           <RegisterForm />
           <Profile />
+          <EditForm />
         </div>
       </Router>
     </UserContext.Provider>

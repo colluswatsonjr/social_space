@@ -1,18 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
 
 const Profile = () => {
     const { user } = useContext(UserContext);
-    const [account, setAccount] = useState({
-        username: 'default',
-        fname: 'default',
-        lname: 'account',
-        bio: 'living my best life'
-    })
-    useEffect(() => {
-        setAccount(user)
-    }, [user])
+
     console.log(user)
     return (
         <>
