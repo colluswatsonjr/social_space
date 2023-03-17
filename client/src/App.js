@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { UserContext } from './context/UserContext';
 import { BrowserRouter as Router } from "react-router-dom";
 import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -18,6 +19,14 @@ function App() {
       })
   }, [])
 
+  function handleLogout() {
+    fetch("/logout", { method: "DELETE" }).then((r) => {
+        if (r.ok) {
+            setUser(null)
+        }
+    });
+}
+
   const login = (user) => {
     setUser(user)
   };
@@ -33,8 +42,9 @@ function App() {
       <Router>
         <div className="App">
           Hello World!<br />
-          {user ? <>Logged in: {user.username}<br/><button onClick={logout}>Logout</button></> : `Logged out:`}
+          {user ? <>Logged in: {user.username}<br /><button onClick={handleLogout}>Logout</button></> : `Logged out:`}
           <LoginForm />
+          <RegisterForm />
         </div>
       </Router>
     </UserContext.Provider>

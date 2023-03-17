@@ -11,12 +11,11 @@ const LoginForm = () => {
         e.preventDefault()
         fetch("/login", {
             method: "POST",
-            headers: { "Content-Type": "applcation/json" },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(form)
         }).then((r) => {
             if (r.ok) {
                 r.json().then((user) => {
-                    console.log(user)
                     login(user)
                 })
             } else {

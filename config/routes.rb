@@ -7,8 +7,9 @@ Rails.application.routes.draw do
 
   resources :spaces
   resources :follows
-  resources :users
+  # resources :users
   get "/me", to: "users#show"
+  post "/register", to: "users#create"
 
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
