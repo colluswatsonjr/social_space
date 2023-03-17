@@ -5,7 +5,7 @@ import { UserContext } from "../context/UserContext";
 
 const EditForm = () => {
     const { user, login, logout } = useContext(UserContext);
-    const [form, setForm] = useState({ username: user.username, fname: user.fname, lname: user.lname, password: '', password_confirmation: '' })
+    const [form, setForm] = useState({ username: user.username, fname: user.fname, lname: user.lname, bio:user.bio, password: '', password_confirmation: '' })
 
     function handleRegister(e) {
         e.preventDefault()
@@ -65,6 +65,16 @@ const EditForm = () => {
                         placeholder={user.lname}
                         value={form.lname}
                         onChange={(e) => setForm({ ...form, lname: e.target.value })}
+                    />
+                    <br />
+                    <br />
+                    <label htmlFor="lname">Bio:</label>
+                    <input
+                        type="text"
+                        id="bio"
+                        placeholder={user.bio}
+                        value={form.bio}
+                        onChange={(e) => setForm({ ...form, bio: e.target.value })}
                     />
                     <br />
                     <br />

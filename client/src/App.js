@@ -5,12 +5,14 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './stylesheets/App.css'
 
 import Profile from './pages/Profile';
-import EditForm from './components/EditForm';
 import LoginRegister from './pages/LoginRegister';
 import PageNotFound from './pages/PageNotFound';
+import UserPage from './pages/UserPage';
+import Navbar from './components/Navbar';
 
 function App() {
   const [user, setUser] = useState(null)
+  const [users, setUsers] = useState({})
 
   useEffect(() => {
     // autologin user
@@ -44,9 +46,28 @@ function App() {
     <UserContext.Provider value={{ user, login, logout }}>
       <Router>
         <div className="App">
-          {user ? <>Logged in: {user.username}<br /><button onClick={handleLogout}>Logout</button></> : `Logged out:`}
+          <div className="header-bar">
+            <div className="header-text">
+              {user ? `Logged in as ${user.username}` : 'Not logged in'}
+            </div>
+            {user && (
+              <button className="logout-button" onClick={handleLogout}>
+                Logout
+              </button>
+            )}
+          </div>
+
           {user ?
             <>
+              <Navbar />
+              <Routes>
+                <Route path='/' element={null} />
+                <Route path='profile' element={null}>
+                  <Route path={user.username} element={<Profile />} />
+                  <Route path=':username' element={<UserPage />} />
+                </Route>
+                <Route path='*' element={<PageNotFound />} />
+              </Routes>
             </>
             :
             <Routes>
@@ -54,7 +75,6 @@ function App() {
               <Route path='*' element={<PageNotFound />} />
             </Routes>
           }
-          <Profile />
           {/* <EditForm /> */}
         </div>
       </Router>

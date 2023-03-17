@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :follows
   # resources :users
   get "/me", to: "users#show"
+  get "/profile/find_user/:username", to: "users#find_user"
   post "/register", to: "users#create"
   patch "/edit_user", to: "users#update"
   delete "/delete_user", to: "users#destroy"
