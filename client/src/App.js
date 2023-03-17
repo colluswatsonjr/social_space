@@ -51,7 +51,7 @@ function App() {
           <LoginForm />
           <RegisterForm />
           <Profile />
-          <EditForm />
+          {/* <EditForm /> */}
         </div>
       </Router>
     </UserContext.Provider>

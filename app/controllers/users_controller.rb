@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     end
 
     def destroy
-        user = User.find_by(id:params[:id])
+        user = User.find_by(id:session[:user_id])
         if user
             user.destroy
             render json: {}

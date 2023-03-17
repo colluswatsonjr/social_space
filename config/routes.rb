@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "/me", to: "users#show"
   post "/register", to: "users#create"
   patch "/edit_user", to: "users#update"
+  delete "/delete_user", to: "users#destroy"
 
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"

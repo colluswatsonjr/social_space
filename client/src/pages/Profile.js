@@ -8,7 +8,7 @@ const Profile = () => {
     console.log(user)
     return (
         <>
-            <h2>User Registration Form</h2>
+            <h2>User Profile Page</h2>
             {user ?
                 <div className="user-card">
                     <h2>{user.username}</h2>

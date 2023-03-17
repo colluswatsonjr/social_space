@@ -4,8 +4,8 @@ import { UserContext } from "../context/UserContext";
 
 
 const EditForm = () => {
-    const { user, login } = useContext(UserContext);
-    const [form, setForm] = useState({ username: '', fname: '', lname: '', password: '', password_confirmation: '' })
+    const { user, login, logout } = useContext(UserContext);
+    const [form, setForm] = useState({ username: user.username, fname: user.fname, lname: user.lname, password: '', password_confirmation: '' })
 
     function handleRegister(e) {
         e.preventDefault()
@@ -23,6 +23,16 @@ const EditForm = () => {
             }
         })
     }
+
+    function handleDelete() {
+        fetch(`/delete_user`, {
+            method: "DELETE",
+        }).then((r) => {
+            if (r.ok) {
+                logout();
+            }
+        });
+    }
     return (
         <div>
             <h2>User Edit Form</h2>
@@ -35,7 +45,6 @@ const EditForm = () => {
                         placeholder={user.username}
                         value={form.username}
                         onChange={(e) => setForm({ ...form, username: e.target.value })}
-                        required
                     />
                     <br />
                     <br />
@@ -46,7 +55,6 @@ const EditForm = () => {
                         placeholder={user.fname}
                         value={form.fname}
                         onChange={(e) => setForm({ ...form, fname: e.target.value })}
-                        required
                     />
                     <br />
                     <br />
@@ -57,7 +65,6 @@ const EditForm = () => {
                         placeholder={user.lname}
                         value={form.lname}
                         onChange={(e) => setForm({ ...form, lname: e.target.value })}
-                        required
                     />
                     <br />
                     <br />
@@ -79,7 +86,8 @@ const EditForm = () => {
                     />
                     <br />
                     <br />
-                    <button type="submit">Register</button>
+                    <button type="submit">Update</button>
+                    <button onClick={handleDelete}>Delete Account</button>
                 </form>
                 : null}
         </div>
