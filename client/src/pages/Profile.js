@@ -12,7 +12,7 @@ const Profile = () => {
             <h2>User Profile Page</h2>
             {editing ?
                 <>
-                    <button onClick={() => setEditing(false)}>Cancel</button>
+                    <button onClick={() => setEditing(false)}>Back</button>
                     <EditForm />
                 </>
                 :

@@ -9,10 +9,10 @@ import LoginRegister from './pages/LoginRegister';
 import PageNotFound from './pages/PageNotFound';
 import UserPage from './pages/UserPage';
 import Navbar from './components/Navbar';
+import Home from './pages/Home';
 
 function App() {
   const [user, setUser] = useState(null)
-  const [users, setUsers] = useState({})
 
   useEffect(() => {
     // autologin user
@@ -61,7 +61,7 @@ function App() {
             <>
               <Navbar />
               <Routes>
-                <Route path='/' element={null} />
+                <Route path='/' element={<Home/>} />
                 <Route path='profile' element={null}>
                   <Route path={user.username} element={<Profile />} />
                   <Route path=':username' element={<UserPage />} />

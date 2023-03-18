@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :spaces
   resources :follows
-  # resources :users
+  resources :users, only: [:index]
   get "/me", to: "users#show"
   get "/profile/find_user/:username", to: "users#find_user"
   post "/register", to: "users#create"

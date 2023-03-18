@@ -6,7 +6,7 @@ import { UserContext } from "../context/UserContext";
 const EditForm = () => {
     const { user, login, logout } = useContext(UserContext);
     const [form, setForm] = useState({ username: user.username, fname: user.fname, lname: user.lname, bio:user.bio, password: '', password_confirmation: '' })
-
+console.log(user)
     function handleRegister(e) {
         e.preventDefault()
         fetch("/edit_user", {
