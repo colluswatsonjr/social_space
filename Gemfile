@@ -9,8 +9,12 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
+# Use postgresql as the database for Active Record
+gem "pg", "~> 1.4.6"
+
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
+
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 gem "rack-cors","~>1.1"
 gem "active_model_serializers"
