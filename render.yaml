@@ -1,18 +1,18 @@
 databases:
-  - name: app_name
-    databaseName: app_name
-    user: app_name
+  - name: social_space
+    databaseName: social_space
+    user: social_space
 
 services:
   - type: web
-    name: app_name
+    name: social_space
     env: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: app_name
+          name: social_space
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
