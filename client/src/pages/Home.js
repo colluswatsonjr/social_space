@@ -1,15 +1,27 @@
-import SpaceList from "../components/SpaceList"
-import UserList from "../components/UserList"
+import { useEffect, useState } from "react";
+import PostsGrid from "../components/PostsGrid";
 
+const Home = ({ users, spaces }) => {
 
-const Home = ({users, spaces}) => {
+    const [posts, setPosts] = useState([])
 
+    useEffect(() => {
+        fetch('/posts')
+            .then((r) => {
+                if (r.ok) {
+                    r.json().then((posts) => setPosts(posts))
+                } else {
+                    r.json().then((error) => console.log('Fetch Posts', error))
+                }
+            })
+    }, [])
+
+    console.log(posts)
 
     return (
         <div>
             Home
-            {users ? <UserList users={users} /> : null}
-            {spaces ? <SpaceList spaces={spaces} /> : null}
+            <PostsGrid posts={posts} />
         </div>
     );
 }

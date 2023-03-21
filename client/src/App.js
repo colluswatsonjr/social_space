@@ -11,6 +11,7 @@ import UserPage from './pages/UserPage';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import HeadBar from './components/HeadBar';
+import SpacePage from './pages/SpacePage';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -78,7 +79,7 @@ function App() {
                 {spaces ?
                   <>
                     {spaces.map((space, index) => (
-                      <Route key={index} path={`/space/${space.title}`} element={<h1>Space.{space.title}</h1>} />
+                      <Route key={index} path={`/space/${space.title}`} element={<SpacePage space={space}/>} />
                     ))}
                   </>
                   :
