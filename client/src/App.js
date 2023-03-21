@@ -10,6 +10,7 @@ import PageNotFound from './pages/PageNotFound';
 import UserPage from './pages/UserPage';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import HeadBar from './components/HeadBar';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -43,13 +44,7 @@ function App() {
       })
   }, [])
 
-  function handleLogout() {
-    fetch("/logout", { method: "DELETE" }).then((r) => {
-      if (r.ok) {
-        setUser(null)
-      }
-    });
-  }
+
 
   const login = (user) => {
     setUser(user)
@@ -63,36 +58,32 @@ function App() {
     <UserContext.Provider value={{ user, login, logout }}>
       <Router>
         <div className="App">
-          <div className="header-bar">
-            <div className="header-text">
-              {user ? `Logged in as ${user.username}` : 'Not logged in'}
-            </div>
-            {user && (
-              <button className="logout-button" onClick={handleLogout}>
-                Logout
-              </button>
-            )}
-          </div>
+          <HeadBar />
 
           {user ?
             <>
               <Navbar />
               <Routes>
                 <Route path='/' element={<Home users={users} spaces={spaces} />} />
-                <Route path='profile' element={null}>
-                  <Route path={user.username} element={<Profile />} />
-                  {users ?
-                    <>
-                      {users.map((account, index) => (
-                        <Route key={index} path={account.username} element={<UserPage account={account} />} />
-                      ))}
-                    </>
-                    :
-                    null
-                  }
-
-                  <Route path=':username' element={<UserPage />} />
-                </Route>
+                <Route path={`profile/${user.username}`} element={<Profile />} />
+                {users ?
+                  <>
+                    {users.map((account, index) => (
+                      <Route key={index} path={`/profile/${account.username}`} element={<UserPage account={account} />} />
+                    ))}
+                  </>
+                  :
+                  null
+                }
+                {spaces ?
+                  <>
+                    {spaces.map((space, index) => (
+                      <Route key={index} path={`/space/${space.title}`} element={<h1>Space.{space.title}</h1>} />
+                    ))}
+                  </>
+                  :
+                  null
+                }
                 <Route path='*' element={<PageNotFound />} />
               </Routes>
             </>
