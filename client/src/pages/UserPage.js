@@ -1,32 +1,32 @@
-// import { createContext, useContext } from "react";
-import { useState } from "react";
-import FollowButton from "../components/FollowButton";
-import PostsGrid from "../components/PostsGrid";
-import UserFollowers from "../components/UserFollowers";
-import PageNotFound from "./PageNotFound";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
+const UserPage = () => {
 
-const UserPage = ({ account }) => {
+    const { username } = useParams();
+    const [user, setUser] = useState(null)
 
-    const [info, setInfo] = useState(account)
-    console.log(info)
+    useEffect(() => {
+        // Fetch user data based on username
+        const fetchUser = async () => {
+            const response = await fetch(`/find_user/${username}`);
+            const data = await response.json();
+            setUser(data);
+        }
+        fetchUser();
+    }, [username]);
+
+    console.log(user)
     return (
         <div>
-            {account ?
+            {user ? (
                 <div>
-                    <div className="user-card">
-                        <h2>{account.username}</h2>
-                        <h3>{account.fname} {account.lname}</h3>
-                        <p>{account.bio}</p>
-                        <UserFollowers followers={account.followers} followees={account.followees} />
-                        <FollowButton accountId={account.id} />
-                    </div>
-                    <PostsGrid posts={account.posts} />
+                    <h2>{user.username}</h2>
+                    <p>{user.bio}</p>
                 </div>
-
-                :
-                <PageNotFound />
-            }
+            ) : (
+                <p>Loading user...</p>
+            )}
         </div>
     );
 }

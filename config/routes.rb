@@ -6,11 +6,13 @@ Rails.application.routes.draw do
   post "/unsubscribe/:id", to: "subscribe#destroy"
 
   resources :spaces
+  get "/find_space/:title", to: "spaces#show"
+
   resources :follows
   resources :users, only: [:index]
   
   get "/me", to: "users#show"
-  get "/profile/find_user/:username", to: "users#find_user"
+  get "/find_user/:username", to: "users#find_user"
   post "/register", to: "users#create"
   patch "/edit_user", to: "users#update"
   delete "/delete_user", to: "users#destroy"

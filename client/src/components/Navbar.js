@@ -11,7 +11,7 @@ const Navbar = () => {
         <nav className="navbar">
             <Link to="/">Home</Link>
             <Link to="/create">Create</Link>
-            <Link to={`/profile/${user.username}`}>Profile</Link>
+            <Link to={`/user/${user.username}`}>Profile</Link>
         </nav>
     );
 }

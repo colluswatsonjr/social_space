@@ -4,19 +4,19 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import './stylesheets/App.css'
 
-import Profile from './pages/Profile';
-import LoginRegister from './pages/LoginRegister';
-import PageNotFound from './pages/PageNotFound';
-import UserPage from './pages/UserPage';
+import HeadBar from './components/HeadBar';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import HeadBar from './components/HeadBar';
+import Create from './pages/Create';
+import Profile from './pages/Profile';
+import UserPage from './pages/UserPage';
 import SpacePage from './pages/SpacePage';
+import LoginRegister from './pages/LoginRegister';
+import PageNotFound from './pages/PageNotFound';
+
 
 function App() {
   const [user, setUser] = useState(null)
-  const [users, setUsers] = useState(null)
-  const [spaces, setSpaces] = useState(null)
 
   useEffect(() => {
     fetch('/me')
@@ -27,25 +27,7 @@ function App() {
           r.json().then((error) => console.log('Autologin error', error))
         }
       })
-    fetch('/users')
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((users) => setUsers(users))
-        } else {
-          r.json().then((error) => console.log('Fetch users error', error))
-        }
-      })
-    fetch('/spaces')
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((spaces) => setSpaces(spaces))
-        } else {
-          r.json().then((error) => console.log('Fetch spaces error', error))
-        }
-      })
   }, [])
-
-
 
   const login = (user) => {
     setUser(user)
@@ -65,26 +47,12 @@ function App() {
             <>
               <Navbar />
               <Routes>
-                <Route path='/' element={<Home users={users} spaces={spaces} />} />
-                <Route path={`profile/${user.username}`} element={<Profile />} />
-                {users ?
-                  <>
-                    {users.map((account, index) => (
-                      <Route key={index} path={`/profile/${account.username}`} element={<UserPage account={account} />} />
-                    ))}
-                  </>
-                  :
-                  null
-                }
-                {spaces ?
-                  <>
-                    {spaces.map((space, index) => (
-                      <Route key={index} path={`/space/${space.title}`} element={<SpacePage space={space}/>} />
-                    ))}
-                  </>
-                  :
-                  null
-                }
+                <Route path='/' element={<Home />} />
+                <Route path='/create' element={<Create />} />
+                <Route path={`user/${user.username}`} element={<Profile />} />
+                <Route path={`user/:username`} element={<UserPage />} />
+                <Route path={`space/:title`} element={<SpacePage />} />
+
                 <Route path='*' element={<PageNotFound />} />
               </Routes>
             </>

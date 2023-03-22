@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PostsGrid from "../components/PostsGrid";
 
-const Home = ({ users, spaces }) => {
+const Home = () => {
 
     const [posts, setPosts] = useState([])
 
@@ -16,11 +16,8 @@ const Home = ({ users, spaces }) => {
             })
     }, [])
 
-    console.log(posts)
-
     return (
         <div>
-            Home
             <PostsGrid posts={posts} />
         </div>
     );

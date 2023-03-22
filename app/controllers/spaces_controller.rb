@@ -4,7 +4,7 @@ class SpacesController < ApplicationController
         render json: spaces
     end
     def show
-        space = Space.find(params[:id])
+        space = Space.find_by(title:params[:title])
         render json: space
     end
     def create
