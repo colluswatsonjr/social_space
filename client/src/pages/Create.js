@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router"
 
+import { TextField, Button, Typography, Grid } from '@mui/material';
+
 
 const Create = () => {
     const [form, setForm] = useState({ title: '', bio: '' })
@@ -22,29 +24,20 @@ const Create = () => {
             }
         })
     }
-        return (
+    return (
         <form onSubmit={handleCreate}>
-            <label htmlFor="title">Title:</label>
-            <input
-                type="text"
-                id="title"
-                value={form.title}
-                onChange={(e) => setForm({ ...form, title: e.target.value })}
-                required
-            />
-            <br />
-            <br />
-            <label htmlFor="bio">Bio:</label>
-            <input
-                type="text"
-                id="bio"
-                value={form.bio}
-                onChange={(e) => setForm({ ...form, bio: e.target.value })}
-                required
-            />
-            <br />
-            <br />
-            <button type="submit">Create</button>
+            <Typography variant="h6">Create Space:</Typography>
+            <Grid container spacing={2} direction="column">
+                <Grid item>
+                    <TextField label="Title" name="title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
+                </Grid>
+                <Grid item>
+                    <TextField label="Bio" name="bio" value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })} required />
+                </Grid>
+                <Grid item>
+                    <Button type="submit" variant="contained" color="primary">Submit</Button>
+                </Grid>
+            </Grid>
         </form>
     );
 }

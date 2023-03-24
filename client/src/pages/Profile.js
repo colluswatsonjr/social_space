@@ -1,17 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import EditForm from "../components/EditForm";
 import PostsGrid from "../components/PostsGrid";
 import { UserContext } from "../context/UserContext";
 
+import { Card, CardContent, CardActions, Button, Typography, Box } from '@mui/material';
+
+
 
 const Profile = () => {
     const { user } = useContext(UserContext);
-    const [editing, setEditing] = useState(false)
-
+    const [editing, setEditing] = useState(null)
+    useEffect(()=>{
+        setEditing(false)
+    },[user])
     console.log(user)
     return (
-        <>
-            <h2>User Profile Page</h2>
+        <Box>
             {editing ?
                 <>
                     <button onClick={() => setEditing(false)}>Back</button>
@@ -19,20 +23,26 @@ const Profile = () => {
                 </>
                 :
                 <div>
-                    <div className="user-card">
-                        <h2>{user.username}</h2>
-                        <h3>{user.fname} {user.lname}</h3>
-                        <p>{user.bio}</p>
-                        <div className="user-followers">
-                            <p><strong>{user.followers.length}</strong> followers</p>
-                            <p><strong>{user.followees.length}</strong> following</p>
-                        </div>
-                        <button onClick={() => setEditing(true)}>Edit Account</button>
-                    </div>
+                    <Card>
+                        <CardContent>
+                            <Typography color="textSecondary" gutterBottom>
+                                {user.fname} {user.lname}
+                            </Typography>
+                            <Typography variant="h5" component="h2">
+                                {user.username}
+                            </Typography>
+                            <Typography variant="body2" component="p">
+                                {user.bio}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button onClick={() => setEditing(true)}>Edit Account</Button>
+                        </CardActions>
+                    </Card>
                     <PostsGrid posts={user.posts} />
                 </div>
             }
-        </>
+        </Box>
     );
 }
 

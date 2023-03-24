@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { UserContext } from './context/UserContext';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import './stylesheets/App.css'
+import { Box} from '@mui/material';
 
-import HeadBar from './components/HeadBar';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Create from './pages/Create';
@@ -40,9 +39,7 @@ function App() {
   return (
     <UserContext.Provider value={{ user, login, logout }}>
       <Router>
-        <div className="App">
-          <HeadBar />
-
+        <Box>
           {user ?
             <>
               <Navbar />
@@ -52,7 +49,6 @@ function App() {
                 <Route path={`user/${user.username}`} element={<Profile />} />
                 <Route path={`user/:username`} element={<UserPage />} />
                 <Route path={`space/:title`} element={<SpacePage />} />
-
                 <Route path='*' element={<PageNotFound />} />
               </Routes>
             </>
@@ -62,8 +58,7 @@ function App() {
               <Route path='*' element={<PageNotFound />} />
             </Routes>
           }
-          {/* <EditForm /> */}
-        </div>
+        </Box>
       </Router>
     </UserContext.Provider>
   );

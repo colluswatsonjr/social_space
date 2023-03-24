@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 
+import { TextField, Button, Typography, Grid } from '@mui/material';
+
 
 const RegisterForm = () => {
 
@@ -27,62 +29,30 @@ const RegisterForm = () => {
     }
 
     return (
-        <div>
-            <h2>User Registration Form</h2>
-            <form onSubmit={handleRegister}>
-                <label htmlFor="username">Username:</label>
-                <input
-                    type="text"
-                    id="username"
-                    value={form.username}
-                    onChange={(e) => setForm({ ...form, username: e.target.value })}
-                    required
-                />
-                <br />
-                <br />
-                <label htmlFor="fname">First Name:</label>
-                <input
-                    type="text"
-                    id="fname"
-                    value={form.fname}
-                    onChange={(e) => setForm({ ...form, fname: e.target.value })}
-                    required
-                />
-                <br />
-                <br />
-                <label htmlFor="lname">Last Name:</label>
-                <input
-                    type="text"
-                    id="lname"
-                    value={form.lname}
-                    onChange={(e) => setForm({ ...form, lname: e.target.value })}
-                    required
-                />
-                <br />
-                <br />
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={form.password}
-                    onChange={(e) => setForm({ ...form, password: e.target.value })}
-                    required
-                />
-                <br />
-                <br />
-                <label htmlFor="password_confirmation">Password Confirmation:</label>
-                <input
-                    type="password"
-                    id="password_confirmation"
-                    value={form.password_confirmation}
-                    onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })}
-                    required
-                />
-                <br />
-                <br />
-                <button type="submit">Register</button>
-            </form>
-        </div>
+
+        <form onSubmit={handleRegister}>
+            <Typography variant="h5">Register:</Typography>
+            <Grid container spacing={2} direction="column">
+                <Grid item>
+                    <TextField label="Username" name="username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} required />
+                </Grid>
+                <Grid item>
+                    <TextField label="First Name" name="first name" value={form.fname} onChange={(e) => setForm({ ...form, fname: e.target.value })} />
+                </Grid>
+                <Grid item>
+                    <TextField label="Last Name" name="last name" value={form.lname} onChange={(e) => setForm({ ...form, lname: e.target.value })} />
+                </Grid>
+                <Grid item>
+                    <TextField label="Password" name="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
+                </Grid>
+                <Grid item>
+                    <TextField label="Password Confirmation" name="password confirmation" value={form.password_confirmation} onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })} required />
+                </Grid>
+                <Grid item>
+                    <Button type="submit" variant="contained" color="primary">Register</Button>
+                </Grid>
+            </Grid>
+        </form>
     );
 }
 

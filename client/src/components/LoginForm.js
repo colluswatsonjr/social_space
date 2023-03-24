@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 
+import { TextField, Button, Typography, Grid } from '@mui/material';
+
 
 const LoginForm = () => {
     const { login } = useContext(UserContext);
@@ -25,32 +27,20 @@ const LoginForm = () => {
     }
 
     return (
-        <div>
-            <h2>User Login Form</h2>
-            <form onSubmit={handleLogin}>
-                <label htmlFor="username">Username:</label>
-                <input
-                    type="text"
-                    id="username"
-                    value={form.username}
-                    onChange={(e) => setForm({ ...form, username: e.target.value })}
-                    required
-                />
-                <br />
-                <br />
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={form.password}
-                    onChange={(e) => setForm({ ...form, password: e.target.value })}
-                    required
-                />
-                <br />
-                <br />
-                <button type="submit">Login</button>
-            </form>
-        </div>
+        <form onSubmit={handleLogin}>
+            <Typography variant="h5">Login:</Typography>
+            <Grid container spacing={2} direction="column">
+                <Grid item>
+                    <TextField label="Username" name="username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} required />
+                </Grid>
+                <Grid item>
+                    <TextField label="Password" name="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
+                </Grid>
+                <Grid item>
+                    <Button type="submit" variant="contained" color="primary">Submit</Button>
+                </Grid>
+            </Grid>
+        </form>
     );
 }
 
