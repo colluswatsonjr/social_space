@@ -15,10 +15,10 @@ const Home = ({ spaces, users }) => {
                             <Grid item key={space.id}>
                                 <Card sx={{ minWidth: 500 }} onClick={() => navigate(`/space/${space.title}`)}>
                                     <CardContent>
-                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                        <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
                                             {space.title}
                                         </Typography>
-                                        <Typography variant="body2">
+                                        <Typography sx={{ fontSize: 20,maxWidth: '90%', height: 'auto' }} variant="body2">
                                             {space.bio}
                                         </Typography>
                                     </CardContent>
@@ -33,10 +33,10 @@ const Home = ({ spaces, users }) => {
                             <Grid item key={user.id}>
                                 <Card sx={{ minWidth: 500 }} onClick={() => navigate(`/user/${user.username}`)}>
                                     <CardContent>
-                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                        <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
                                             {user.username}
                                         </Typography>
-                                        <Typography sx={{ maxWidth: '90%', height: 'auto' }} variant="body2">
+                                        <Typography sx={{ fontSize: 20,maxWidth: '90%', height: 'auto' }} variant="body2">
                                             {user.bio}
                                         </Typography>
                                     </CardContent>

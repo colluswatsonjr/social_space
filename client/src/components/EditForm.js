@@ -38,6 +38,7 @@ const EditForm = () => {
         }).then((r) => {
             if (r.ok) {
                 logout();
+                navigate(`/`)
             }
         });
     }

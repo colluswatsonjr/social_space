@@ -9,13 +9,11 @@ The objective of this project is to develop a fully functional and user-friendly
 ## Features of SocialSpace:
 - User Registration and Login: Users will be able to create a profile and personal information, and securely log in to the site.
 
-- Home Feed: A personalized news feed that displays updates from friends and communities the user is following.
+- Home Feed: A personalized news feed that displays users and spaces.
 
-- Profile: A customizable profile page where users can showcase their photos, posts, personal information, and interests.
+- Profile: A customizable profile page where users can showcase their posts, personal information, and interests.
 
 - Spaces: Users will be able to join and participate in online communities based on their interests.
-
-- Search: A search feature that allows users to find other users, communities, and content on the site.
 
 
 ### 

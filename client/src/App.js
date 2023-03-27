@@ -70,10 +70,6 @@ function App() {
     setUser(null)
   };
 
-
-
-  console.log('error',error)
-
   return (
     <Container sx={{ textAlign: 'center' }}>
       <UserContext.Provider value={{ user, login, logout }}>

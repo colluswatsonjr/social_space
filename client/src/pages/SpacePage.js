@@ -10,6 +10,7 @@ const SpacePage = () => {
 
     const { title } = useParams();
     const [space, setSpace] = useState(null)
+    const [posts, setPosts] = useState([])
 
     useEffect(() => {
         // Fetch user data based on username
@@ -17,17 +18,20 @@ const SpacePage = () => {
             const response = await fetch(`/find_space/${title}`);
             const data = await response.json();
             setSpace(data);
+            setPosts(data.posts)
         }
         fetchUser();
     }, [title]);
 
+
     function addPost(x) {
-        setSpace({ ...space, posts: [...space.posts, x] })
+        // setSpace({ ...space, posts: [...space.posts, x] })
+        setPosts([...posts,x])
     }
 
-    function handleEdit(x) {
-        const edit = space.posts.filter((post) => post.id !== x)
-        setSpace({ ...space, posts: edit })
+    function handleEditPosts(x) {
+        const edit = posts.filter((post) => post.id !== x)
+        setPosts(edit)
     }
 
     function handleSub(x) {
@@ -58,7 +62,7 @@ const SpacePage = () => {
                         </CardActions>
                     </Card>
                         <CreatePost spaceId={space.id} addPost={addPost} />
-                        <PostsGrid posts={space.posts} onEdit={handleEdit} />
+                        <PostsGrid posts={posts} editPosts={handleEditPosts}/>
                 </Box>
 
             ) : (

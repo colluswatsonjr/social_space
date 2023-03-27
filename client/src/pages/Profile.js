@@ -10,12 +10,17 @@ const Profile = () => {
 
     const { user } = useContext(UserContext);
     const [editing, setEditing] = useState(null)
+    const [posts, setPosts] = useState([])
 
     useEffect(() => {
         setEditing(false)
+        setPosts(user.posts)
     }, [user])
 
-    console.log('profile', user)
+    function handleEditPosts(x) {
+        const edit = posts.filter((post) => post.id !== x)
+        setPosts(edit)
+    }
 
     return (
         <Grid item>
@@ -46,7 +51,7 @@ const Profile = () => {
                             <Button onClick={() => setEditing(true)}>Edit Account</Button>
                         </CardActions>
                     </Card>
-                    <PostsGrid posts={user.posts} />
+                    <PostsGrid posts={posts} editPosts={handleEditPosts} />
                 </Box>
             }
         </Grid>
