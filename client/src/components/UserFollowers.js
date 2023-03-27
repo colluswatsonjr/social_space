@@ -3,7 +3,7 @@
 const UserFollowers = ({ followers, followees }) => {
 
     return (
-        <div className="user-followers">
+        <div>
             <p><strong>{followers.length}</strong> followers</p>
             <p><strong>{followees.length}</strong> following</p>
         </div>

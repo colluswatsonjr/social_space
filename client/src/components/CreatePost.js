@@ -28,16 +28,10 @@ const CreatePost = ({ spaceId, addPost }) => {
     }
 
     return (
-        <form onSubmit={handleComment}>
-            <Grid container spacing={2} direction="column">
-                <Grid item>
-                    <TextField label="Username" name="username" value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} required />
-                </Grid>
-                <Grid item>
-                    <Button type="submit" variant="contained" color="primary">Leave Comment</Button>
-                </Grid>
-            </Grid>
-        </form>
+        <Grid item>
+            <TextField label="Leave a comment" name="username" value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} required />
+            <Button onClick={(e)=>handleComment(e)} type="submit" variant="contained" color="primary">Leave Comment</Button>
+        </Grid>
     );
 }
 

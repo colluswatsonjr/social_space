@@ -4,8 +4,7 @@ import FollowButton from "../components/FollowButton";
 import PostsGrid from "../components/PostsGrid";
 import UserFollowers from "../components/UserFollowers";
 
-import { Box} from '@mui/material';
-
+import { Grid, Card, CardContent, CardActions, Typography } from '@mui/material';
 
 const UserPage = () => {
 
@@ -20,33 +19,47 @@ const UserPage = () => {
         }
         fetchUser();
     }, [username]);
+
     function handleRemove(x) {
-        console.log(x)
-        console.log(user)
         const edit = user.followers.filter((user) => user.id !== x.id)
         setUser({ ...user, followers: edit })
     }
 
     function handleAdd(x) {
-        console.log(x)
-        console.log(user)
         setUser({ ...user, followers: [...user.followers, x] })
     }
-    
+
+    function handleEdit(x){
+        console.log('handle', x)
+    }
+
     return (
-        <Box>
+        <Grid item> 
             {user ? (
-                <div>
-                    <h2>{user.username}</h2>
-                    <p>{user.bio}</p>
-                    <UserFollowers followees={user.followees} followers={user.followers} />
-                    <FollowButton accountId={user.id} onAdd={handleAdd} onRemove={handleRemove} />
-                    <PostsGrid posts={user.posts} />
-                </div>
+                <>
+                    <Card>
+                        <CardContent>
+                            <Typography color="textSecondary" gutterBottom>
+                                {user.fname} {user.lname}
+                            </Typography>
+                            <Typography variant="h5" component="h2">
+                                {user.username}
+                            </Typography>
+                            <Typography variant="body2" component="p">
+                                {user.bio}
+                            </Typography>
+                            <UserFollowers followees={user.followees} followers={user.followers} />
+                        </CardContent>
+                        <CardActions>
+                                <FollowButton accountId={user.id} onAdd={handleAdd} onRemove={handleRemove} />
+                            </CardActions>
+                    </Card>
+                    <PostsGrid posts={user.posts} onEdit={handleEdit} />
+                </>
             ) : (
                 <p>Loading user...</p>
             )}
-        </Box>
+        </Grid>
     );
 }
 

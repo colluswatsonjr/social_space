@@ -3,26 +3,27 @@ import EditForm from "../components/EditForm";
 import PostsGrid from "../components/PostsGrid";
 import { UserContext } from "../context/UserContext";
 
-import { Card, CardContent, CardActions, Button, Typography, Box } from '@mui/material';
-
-
+import { Card, CardContent, CardActions, Button, Typography, Grid } from '@mui/material';
+import UserFollowers from "../components/UserFollowers";
 
 const Profile = () => {
+
     const { user } = useContext(UserContext);
     const [editing, setEditing] = useState(null)
-    useEffect(()=>{
+
+    useEffect(() => {
         setEditing(false)
-    },[user])
-    console.log(user)
+    }, [user])
+
     return (
-        <Box>
+        <Grid item>
             {editing ?
                 <>
                     <button onClick={() => setEditing(false)}>Back</button>
                     <EditForm />
                 </>
                 :
-                <div>
+                <>
                     <Card>
                         <CardContent>
                             <Typography color="textSecondary" gutterBottom>
@@ -34,15 +35,17 @@ const Profile = () => {
                             <Typography variant="body2" component="p">
                                 {user.bio}
                             </Typography>
+                            <UserFollowers followees={user.followees} followers={user.followers} />
                         </CardContent>
+
                         <CardActions>
                             <Button onClick={() => setEditing(true)}>Edit Account</Button>
                         </CardActions>
                     </Card>
                     <PostsGrid posts={user.posts} />
-                </div>
+                </>
             }
-        </Box>
+        </Grid>
     );
 }
 

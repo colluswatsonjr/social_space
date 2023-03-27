@@ -25,9 +25,9 @@ const Create = () => {
         })
     }
     return (
-        <form onSubmit={handleCreate}>
-            <Typography variant="h6">Create Space:</Typography>
-            <Grid container spacing={2} direction="column">
+        <Grid item>
+            <form onSubmit={handleCreate}>
+                <Typography variant="h6">Create Space:</Typography>
                 <Grid item>
                     <TextField label="Title" name="title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
                 </Grid>
@@ -37,8 +37,8 @@ const Create = () => {
                 <Grid item>
                     <Button type="submit" variant="contained" color="primary">Submit</Button>
                 </Grid>
-            </Grid>
-        </form>
+            </form>
+        </Grid>
     );
 }
 

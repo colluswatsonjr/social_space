@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 
-import { TextField, Button, Typography, Grid } from '@mui/material';
+import { TextField, Button, Grid } from '@mui/material';
 import { useNavigate } from "react-router";
 
 
@@ -43,7 +43,6 @@ const EditForm = () => {
             <h2>User Edit Form</h2>
             {user ?
                 <form onSubmit={handleRegister}>
-                    <Typography variant="h4">Register:</Typography>
                     <Grid container spacing={2} direction="column">
                         <Grid item>
                             <TextField label="Username" name="username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
@@ -64,7 +63,7 @@ const EditForm = () => {
                             <TextField label="Password Confirmation" name="password confirmation" value={form.password_confirmation} onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })} />
                         </Grid>
                         <Grid item>
-                            <Button type="submit" variant="contained" color="primary">Register</Button>
+                            <Button type="submit" variant="contained" color="primary">Update</Button>
                         </Grid>
                     </Grid>
                     <br />

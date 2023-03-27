@@ -27,20 +27,21 @@ const LoginForm = () => {
     }
 
     return (
+        <Grid item>
         <form onSubmit={handleLogin}>
             <Typography variant="h5">Login:</Typography>
-            <Grid container spacing={2} direction="column">
                 <Grid item>
                     <TextField label="Username" name="username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} required />
                 </Grid>
                 <Grid item>
                     <TextField label="Password" name="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
                 </Grid>
+                <br/>
                 <Grid item>
                     <Button type="submit" variant="contained" color="primary">Submit</Button>
                 </Grid>
-            </Grid>
         </form>
+        </Grid>
     );
 }
 

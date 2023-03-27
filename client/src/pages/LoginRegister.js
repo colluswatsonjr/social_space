@@ -2,12 +2,12 @@ import { useState } from "react";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 
-
+import { Grid } from '@mui/material';
 
 const LoginRegister = () => {
     const [haveAccount, setHaveAccount] = useState(true)
     return (
-        <>
+        <Grid item>
             {haveAccount ?
                 <>
                     <LoginForm />
@@ -25,7 +25,7 @@ const LoginRegister = () => {
                     </button>
                 </>
             }
-        </>
+        </Grid>
     );
 }
 

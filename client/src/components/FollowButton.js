@@ -15,9 +15,6 @@ const FollowButton = ({ accountId, onAdd, onRemove }) => {
     })
   }, [user, accountId]);
 
-
-
-
   function handleFollow() {
     setIsFollowing(true)
     fetch(`/follow/${accountId}`, {

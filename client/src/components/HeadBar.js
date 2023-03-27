@@ -2,8 +2,6 @@ import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
 
-
-
 const HeadBar = () => {
     const { user, logout } = useContext(UserContext);
 
