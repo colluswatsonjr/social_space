@@ -34,12 +34,10 @@ const UserPage = () => {
         setUser({ ...user, posts: edit })
     }
 
-    console.log('user',user)
-
     return (
         <Grid item>
             {user ? (
-                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column' }}>
                     <Card>
                         <CardContent>
                             <Typography color="textSecondary" gutterBottom>

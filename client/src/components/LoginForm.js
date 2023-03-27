@@ -2,9 +2,11 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 
 import { TextField, Button, Typography, Grid } from '@mui/material';
+import { ErrorContext } from "../context/ErrorContext";
 
 
 const LoginForm = () => {
+    const { showError } = useContext(ErrorContext)
     const { login } = useContext(UserContext);
 
     const [form, setForm] = useState({ username: '', password: '' })
@@ -21,7 +23,7 @@ const LoginForm = () => {
                     login(user)
                 })
             } else {
-                r.json().then((error) => console.log('Login error', error))
+                r.json().then((error) => showError(error))
             }
         })
     }

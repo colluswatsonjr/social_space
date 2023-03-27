@@ -1,8 +1,10 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router";
+import { ErrorContext } from "../context/ErrorContext";
 import { UserContext } from "../context/UserContext";
 
 const HeadBar = () => {
+    const { showError } = useContext(ErrorContext)
     const { user, logout } = useContext(UserContext);
 
     let navigate = useNavigate()
@@ -12,6 +14,8 @@ const HeadBar = () => {
           if (r.ok) {
             logout(null)
             navigate('/')
+          }else{
+            r.json().then((error) => showError( error))
           }
         });
       }

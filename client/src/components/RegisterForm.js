@@ -2,12 +2,12 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 
 import { TextField, Button, Typography, Grid } from '@mui/material';
+import { ErrorContext } from "../context/ErrorContext";
 
 
 const RegisterForm = () => {
-
+    const { showError } = useContext(ErrorContext)
     const { login } = useContext(UserContext);
-
     const [form, setForm] = useState({ username: '', fname: '', lname: '', password: '', password_confirmation: '' })
 
     function handleRegister(e) {
@@ -23,7 +23,7 @@ const RegisterForm = () => {
                     login(user)
                 })
             } else {
-                r.json().then((error) => console.log('Register error', error))
+                r.json().then((error) => showError(error))
             }
         })
     }

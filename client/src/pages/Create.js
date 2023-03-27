@@ -1,10 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router"
 
 import { TextField, Button, Box, Typography } from '@mui/material';
+import { ErrorContext } from "../context/ErrorContext";
 
 
-const Create = () => {
+const Create = ({ setSpace }) => {
+    const { showError } = useContext(ErrorContext)
     const [form, setForm] = useState({ title: '', bio: '' })
     let navigate = useNavigate()
 
@@ -17,10 +19,11 @@ const Create = () => {
         }).then((r) => {
             if (r.ok) {
                 r.json().then((space) => {
+                    setSpace(space)
                     navigate(`/space/${space.title}`)
                 })
             } else {
-                r.json().then((error) => console.log('Create Space Error', error))
+                r.json().then((error) => showError(error))
             }
         })
     }

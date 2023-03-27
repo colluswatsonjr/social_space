@@ -18,7 +18,7 @@ class SpacesController < ApplicationController
       space.save
       render json: space, status: :created
     else
-      render json: { errors: space.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: space.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

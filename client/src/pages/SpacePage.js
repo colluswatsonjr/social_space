@@ -39,11 +39,10 @@ const SpacePage = () => {
         setSpace({ ...space, subscribes: edit })
     }
 
-    console.log(space)
     return (
         <Grid item>
             {space ? (
-                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column' }}>
                     <Card>
                         <CardContent>
                             <Typography variant="h5" component="h2">

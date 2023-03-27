@@ -12,7 +12,7 @@ class SubscribesController < ApplicationController
     if subscribe.valid?
       render json: subscribe
     else
-      render json: { errors: subscribe.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: subscribe.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -22,7 +22,7 @@ class SubscribesController < ApplicationController
       subscribe.destroy
       render json: subscribe
     else
-      render json: { errors: subscribe.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: subscribe.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

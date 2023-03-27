@@ -7,9 +7,11 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import { ErrorContext } from "../context/ErrorContext";
 
 
 const Navbar = () => {
+    const { showError } = useContext(ErrorContext)
     const { user, logout } = useContext(UserContext);
 
     let navigate = useNavigate()
@@ -19,6 +21,8 @@ const Navbar = () => {
             if (r.ok) {
                 logout(null)
                 navigate('/')
+            }else{
+                 r.json().then((error) => showError(error))
             }
         });
     }

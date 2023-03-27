@@ -2,8 +2,11 @@ import { useContext, useState } from "react"
 import { UserContext } from "../context/UserContext";
 
 import { Grid, TextField, Button } from '@mui/material';
+import { ErrorContext } from "../context/ErrorContext";
 
 const CreatePost = ({ spaceId, addPost }) => {
+    const { showError } = useContext(ErrorContext)
+
     const { user, login } = useContext(UserContext);
     const [form, setForm] = useState({ text: '' })
 
@@ -22,7 +25,7 @@ const CreatePost = ({ spaceId, addPost }) => {
                 addPost(post)
                 login({ ...user, posts: [...user.posts, post] })
             })
-            .catch(err => console.log(err))
+            .catch(error => showError(error))
 
         setForm({ text: '' })
     }

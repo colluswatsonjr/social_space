@@ -15,7 +15,7 @@ class PostsController < ApplicationController
         if post.valid?
             render json: post
         else
-            render json: {errors: post.errors.full_messages}, status: :unprocessable_entity
+            render json: {error: post.errors.full_messages}, status: :unprocessable_entity
         end
     end
     def destroy

@@ -2,9 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 
 import { Button } from '@mui/material';
+import { ErrorContext } from "../context/ErrorContext";
 
 const SubscribeButton = ({ spaceId, space, onSub, onUnsub }) => {
-    const { user, login } = useContext(UserContext);
+    const { showError } = useContext(ErrorContext)
+    const { user } = useContext(UserContext);
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [subId, setSubId] = useState(null)
 
@@ -30,7 +32,7 @@ const SubscribeButton = ({ spaceId, space, onSub, onUnsub }) => {
                         onSub(r)
                     })
                 } else {
-                    r.json().then((error) => console.log('not logged in', error))
+                    r.json().then((error) => showError(error))
                 }
             })
     }

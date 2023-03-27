@@ -4,10 +4,11 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 
 import { Typography, Button, Grid, Box, Card, CardActions, CardContent } from '@mui/material';
+import { ErrorContext } from "../context/ErrorContext";
 
 
 const PostsGrid = ({ posts, onEdit }) => {
-
+const { showError } = useContext(ErrorContext)
   const { user, login } = useContext(UserContext);
   let navigate = useNavigate()
 
@@ -26,9 +27,8 @@ const PostsGrid = ({ posts, onEdit }) => {
         setAllPosts(edit)
         const userPosts = user.posts.filter((post)=>post.id !== id)
         login({ ...user, posts: userPosts })
-        // onEdit(id)
-        // setPosts(edit)
-        // setAllPosts(edit)
+      }else{
+                 r.json().then((error) => showError(error))
       }
     });
   }

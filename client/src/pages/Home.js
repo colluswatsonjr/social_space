@@ -1,27 +1,51 @@
-import { useEffect, useState } from "react";
-import PostsGrid from "../components/PostsGrid";
 
-import { Box } from '@mui/material';
+import { useNavigate } from "react-router";
 
-const Home = () => {
+import { Box, Grid, Card, CardContent, Typography } from '@mui/material';
 
-    const [posts, setPosts] = useState([])
+const Home = ({ spaces, users }) => {
 
-    useEffect(() => {
-        fetch('/posts')
-            .then((r) => {
-                if (r.ok) {
-                    r.json().then((posts) => setPosts(posts))
-                } else {
-                    r.json().then((error) => console.log('Fetch Posts', error))
-                }
-            })
-    }, [])
+    let navigate = useNavigate()
 
     return (
-        <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <PostsGrid posts={posts} />
-        </Box>
+            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                <Box sx={{ marginTop: 8 }}>
+                    {spaces ? spaces.map((space) => {
+                        return (
+                            <Grid item key={space.id}>
+                                <Card sx={{ minWidth: 500 }} onClick={() => navigate(`/space/${space.title}`)}>
+                                    <CardContent>
+                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                            {space.title}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            {space.bio}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        )
+                    }) : null}
+                </Box>
+                <Box sx={{  marginTop: 8}}>
+                    {users ? users.map((user) => {
+                        return (
+                            <Grid item key={user.id}>
+                                <Card sx={{ minWidth: 500 }} onClick={() => navigate(`/user/${user.username}`)}>
+                                    <CardContent>
+                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                            {user.username}
+                                        </Typography>
+                                        <Typography sx={{ maxWidth: '90%', height: 'auto' }} variant="body2">
+                                            {user.bio}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        )
+                    }) : null}
+                </Box>
+            </Grid>
     );
 }
 

@@ -3,9 +3,12 @@ import { UserContext } from "../context/UserContext";
 
 import { TextField, Button, Grid } from '@mui/material';
 import { useNavigate } from "react-router";
+import { ErrorContext } from "../context/ErrorContext";
 
 
 const EditForm = () => {
+    const { showError } = useContext(ErrorContext)
+
     const { user, login, logout } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -24,7 +27,7 @@ const EditForm = () => {
                     navigate(`/user/${user.username}`)
                 })
             } else {
-                r.json().then((error) => console.log('Register error', error))
+                r.json().then((error) => showError(error))
             }
         })
     }

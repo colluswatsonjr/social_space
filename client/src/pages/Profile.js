@@ -20,12 +20,14 @@ const Profile = () => {
     return (
         <Grid item>
             {editing ?
-                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <button onClick={() => setEditing(false)}>Back</button>
-                    <EditForm />
-                </Box>
+                <>
+                    <button onClick={() => setEditing(false)}>Back</button>
+                    <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column' }}>
+                        <EditForm />
+                    </Box>
+                </>
                 :
-                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column' }}>
                     <Card>
                         <CardContent>
                             <Typography color="textSecondary" gutterBottom>
