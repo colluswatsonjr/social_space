@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PostsGrid from "../components/PostsGrid";
 
-import {Box} from '@mui/material';
+import { Box } from '@mui/material';
 
 const Home = () => {
 
@@ -19,7 +19,7 @@ const Home = () => {
     }, [])
 
     return (
-        <Box sx={{textAlign:'center'}}>
+        <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <PostsGrid posts={posts} />
         </Box>
     );

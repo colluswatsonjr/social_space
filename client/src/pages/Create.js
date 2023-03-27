@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router"
 
-import { TextField, Button, Typography, Grid } from '@mui/material';
+import { TextField, Button, Box, Typography } from '@mui/material';
 
 
 const Create = () => {
@@ -25,20 +25,17 @@ const Create = () => {
         })
     }
     return (
-        <Grid item>
+        <>
             <form onSubmit={handleCreate}>
-                <Typography variant="h6">Create Space:</Typography>
-                <Grid item>
+                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Typography variant="h6">Create Space:</Typography>
                     <TextField label="Title" name="title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
-                </Grid>
-                <Grid item>
                     <TextField label="Bio" name="bio" value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })} required />
-                </Grid>
-                <Grid item>
                     <Button type="submit" variant="contained" color="primary">Submit</Button>
-                </Grid>
+                </Box>
             </form>
-        </Grid>
+        </>
+
     );
 }
 

@@ -4,7 +4,7 @@ import FollowButton from "../components/FollowButton";
 import PostsGrid from "../components/PostsGrid";
 import UserFollowers from "../components/UserFollowers";
 
-import { Grid, Card, CardContent, CardActions, Typography } from '@mui/material';
+import { Box, Grid, Card, CardContent, CardActions, Typography } from '@mui/material';
 
 const UserPage = () => {
 
@@ -29,14 +29,17 @@ const UserPage = () => {
         setUser({ ...user, followers: [...user.followers, x] })
     }
 
-    function handleEdit(x){
-        console.log('handle', x)
+    function handleEdit(x) {
+        const edit = user.posts.filter((post) => post.id !== x.id)
+        setUser({ ...user, posts: edit })
     }
 
+    console.log('user',user)
+
     return (
-        <Grid item> 
+        <Grid item>
             {user ? (
-                <>
+                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Card>
                         <CardContent>
                             <Typography color="textSecondary" gutterBottom>
@@ -51,11 +54,11 @@ const UserPage = () => {
                             <UserFollowers followees={user.followees} followers={user.followers} />
                         </CardContent>
                         <CardActions>
-                                <FollowButton accountId={user.id} onAdd={handleAdd} onRemove={handleRemove} />
-                            </CardActions>
+                            <FollowButton accountId={user.id} onAdd={handleAdd} onRemove={handleRemove} />
+                        </CardActions>
                     </Card>
                     <PostsGrid posts={user.posts} onEdit={handleEdit} />
-                </>
+                </Box>
             ) : (
                 <p>Loading user...</p>
             )}

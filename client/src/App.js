@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { UserContext } from './context/UserContext';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import { Grid } from '@mui/material';
+import { Grid, Container} from '@mui/material';
 
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -37,9 +37,9 @@ function App() {
   };
 
   return (
+    <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
     <UserContext.Provider value={{ user, login, logout }}>
       <Router>
-        <Grid container spacing={2} >
           {user ?
             <>
               <Navbar />
@@ -58,9 +58,10 @@ function App() {
               <Route path='*' element={<PageNotFound />} />
             </Routes>
           }
-        </Grid>
       </Router>
     </UserContext.Provider>
+    </Container>
+
   );
 }
 

@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import CreatePost from "../components/CreatePost";
 import PostsGrid from "../components/PostsGrid";
 
-import { Grid, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Grid, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import SubscribeButton from "../components/SubscribeButton";
 
 const SpacePage = () => {
@@ -22,13 +22,12 @@ const SpacePage = () => {
     }, [title]);
 
     function addPost(x) {
-        setSpace({...space, posts: [...space.posts, x]})
+        setSpace({ ...space, posts: [...space.posts, x] })
     }
 
-    function handleEdit(x){
+    function handleEdit(x) {
         const edit = space.posts.filter((post) => post.id !== x)
         setSpace({ ...space, posts: edit })
-        console.log('handleedit')
     }
 
     function handleSub(x) {
@@ -44,7 +43,7 @@ const SpacePage = () => {
     return (
         <Grid item>
             {space ? (
-                <>
+                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Card>
                         <CardContent>
                             <Typography variant="h5" component="h2">
@@ -56,12 +55,13 @@ const SpacePage = () => {
                             <Typography variant="body2">{space.subscribes.length} subscribers</Typography>
                         </CardContent>
                         <CardActions>
-                            <SubscribeButton spaceId={space.id} space={space} onSub={(x)=>handleSub(x)} onUnsub={(x)=>handleUnsub(x)}/>
+                            <SubscribeButton spaceId={space.id} space={space} onSub={(x) => handleSub(x)} onUnsub={(x) => handleUnsub(x)} />
                         </CardActions>
                     </Card>
-                    <CreatePost spaceId={space.id} addPost={addPost} />
-                    <PostsGrid posts={space.posts} onEdit={handleEdit} />
-                </>
+                        <CreatePost spaceId={space.id} addPost={addPost} />
+                        <PostsGrid posts={space.posts} onEdit={handleEdit} />
+                </Box>
+
             ) : (
                 <Typography>Loading space...</Typography>
             )}

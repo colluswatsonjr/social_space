@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
-import { Typography, Button, Grid, Card } from '@mui/material';
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
+
+import { Typography, Button, Grid, Box, Card, CardActions, CardContent } from '@mui/material';
+
 
 const PostsGrid = ({ posts, onEdit }) => {
 
@@ -11,9 +13,9 @@ const PostsGrid = ({ posts, onEdit }) => {
 
   const [allPosts, setAllPosts] = useState([])
 
-  useEffect(()=>{
+  useEffect(() => {
     setAllPosts(posts)
-  },[posts])
+  }, [posts])
 
   function removePost(id) {
     fetch(`/posts/${id}`, {
@@ -22,28 +24,35 @@ const PostsGrid = ({ posts, onEdit }) => {
       if (r.ok) {
         const edit = posts.filter((post) => post.id !== id)
         setAllPosts(edit)
-        onEdit(id)
+        const userPosts = user.posts.filter((post)=>post.id !== id)
+        login({ ...user, posts: userPosts })
+        // onEdit(id)
         // setPosts(edit)
         // setAllPosts(edit)
-        login({ ...user, posts: edit })
       }
     });
   }
 
 
   return (
-    <Grid container spacing={2}>
-      {allPosts.map(post => (
-        <Grid item key={post.id} sx={{ width: '50%', height: '50%' }} alignItems="center">
-          <Card>
-            <Typography onClick={() => navigate(`/space/${post.space.title}`)}>{post.space.title}</Typography>
-            <Typography onClick={() => navigate(`/user/${post.user.username}`)}>{post.user.username}</Typography>
-            <Typography>{post.text}</Typography>
-            {post.user.id === user.id ? <Button onClick={() => removePost(post.id)}> Remove </Button> : null}
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
+    <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        {allPosts.map(post => (
+          <Grid item xs={2} sm={4} md={4} key={post.id}>
+            <Card sx={{ minWidth: 275 }}>
+              <CardContent>
+                <Typography variant="h5" component="div" onClick={() => navigate(`/space/${post.space.title}`)}>{post.space.title}</Typography>
+                <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => navigate(`/user/${post.user.username}`)}>{post.user.username}</Typography>
+                <Typography variant="body2">{post.text}</Typography>
+              </CardContent>
+              <CardActions>
+              {post.user.id === user.id ? <Button onClick={() => removePost(post.id)}> Remove </Button> : null}
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 }
 

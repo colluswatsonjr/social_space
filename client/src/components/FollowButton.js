@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 
+import { Button } from '@mui/material';
 
 const FollowButton = ({ accountId, onAdd, onRemove }) => {
   const { user, login } = useContext(UserContext);
@@ -49,9 +50,9 @@ const FollowButton = ({ accountId, onAdd, onRemove }) => {
 
 
   if (isFollowing) {
-    return <button onClick={handleUnfollow}>Unfollow</button>;
+    return <Button onClick={handleUnfollow}>Unfollow</Button>;
   } else {
-    return <button onClick={handleFollow}>Follow</button>;
+    return <Button onClick={handleFollow}>Follow</Button>;
   }
 }
 

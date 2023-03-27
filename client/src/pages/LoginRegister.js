@@ -2,11 +2,13 @@ import { useState } from "react";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 
 const LoginRegister = () => {
     const [haveAccount, setHaveAccount] = useState(true)
     return (
+        <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
         <Grid item>
             {haveAccount ?
                 <>
@@ -26,6 +28,8 @@ const LoginRegister = () => {
                 </>
             }
         </Grid>
+        </Box>
+
     );
 }
 

@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom"
 
+import {Box} from '@mui/material'
+
 
 const PageNotFound = () => {
     return (
-        <div>
+        <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             PageNotFound
             <Link to='/'>Go Back Home</Link>
-        </div>
+        </Box>
     );
 }
 
