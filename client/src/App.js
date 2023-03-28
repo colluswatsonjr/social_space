@@ -83,8 +83,8 @@ function App() {
                   <Route path='/' element={<Home spaces={spaces} users={users} />} />
                   <Route path='/create' element={<Create setSpace={(space) => setSpaces([...spaces, space])} />} />
                   <Route path={`user/${user.username}`} element={<Profile />} />
-                  <Route path={`user/:username`} element={<UserPage />} />
-                  <Route path={`space/:title`} element={<SpacePage />} />
+                  <Route path={`user/:username`} element={<UserPage users={users} />} />
+                  <Route path={`space/:title`} element={<SpacePage spaces={spaces} />} />
                   <Route path='*' element={<PageNotFound />} />
                 </Routes>
               </>

@@ -33,12 +33,12 @@ const EditForm = () => {
     }
 
     function handleDelete() {
+        navigate(`/`)
         fetch(`/delete_user`, {
             method: "DELETE",
         }).then((r) => {
             if (r.ok) {
                 logout();
-                navigate(`/`)
             }
         });
     }

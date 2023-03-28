@@ -6,19 +6,21 @@ import UserFollowers from "../components/UserFollowers";
 
 import { Box, Grid, Card, CardContent, CardActions, Typography } from '@mui/material';
 
-const UserPage = () => {
+const UserPage = ({users}) => {
 
     const { username } = useParams();
     const [user, setUser] = useState(null)
 
     useEffect(() => {
-        const fetchUser = async () => {
-            const response = await fetch(`/find_user/${username}`);
-            const data = await response.json();
-            setUser(data);
-        }
-        fetchUser();
-    }, [username]);
+        // const fetchUser = async () => {
+        //     const response = await fetch(`/find_user/${username}`);
+        //     const data = await response.json();
+        //     setUser(data);
+        // }
+        // fetchUser();
+        const find = users.filter((user)=>user.username === username)
+        setUser(find[0])
+    }, [username, users]);
 
     function handleRemove(x) {
         const edit = user.followers.filter((user) => user.id !== x.id)

@@ -6,7 +6,7 @@ import PostsGrid from "../components/PostsGrid";
 import { Grid, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import SubscribeButton from "../components/SubscribeButton";
 
-const SpacePage = () => {
+const SpacePage = ({spaces}) => {
 
     const { title } = useParams();
     const [space, setSpace] = useState(null)
@@ -14,14 +14,17 @@ const SpacePage = () => {
 
     useEffect(() => {
         // Fetch user data based on username
-        const fetchUser = async () => {
-            const response = await fetch(`/find_space/${title}`);
-            const data = await response.json();
-            setSpace(data);
-            setPosts(data.posts)
-        }
-        fetchUser();
-    }, [title]);
+        // const fetchUser = async () => {
+        //     const response = await fetch(`/find_space/${title}`);
+        //     const data = await response.json();
+        //     setSpace(data);
+        //     setPosts(data.posts)
+        // }
+        // fetchUser();
+        const find = spaces.filter((space)=>space.title === title)
+        setSpace(find[0])
+        setPosts(find[0].posts)
+    }, [title, spaces]);
 
 
     function addPost(x) {
