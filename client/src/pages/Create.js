@@ -5,7 +5,7 @@ import { TextField, Button, Box, Typography } from '@mui/material';
 import { ErrorContext } from "../context/ErrorContext";
 
 
-const Create = ({ setSpace }) => {
+const Create = ({ setSpaces }) => {
     const { showError } = useContext(ErrorContext)
     const [form, setForm] = useState({ title: '', bio: '' })
     let navigate = useNavigate()
@@ -19,7 +19,7 @@ const Create = ({ setSpace }) => {
         }).then((r) => {
             if (r.ok) {
                 r.json().then((space) => {
-                    setSpace(space)
+                    setSpaces(space)
                     navigate(`/space/${space.title}`)
                 })
             } else {

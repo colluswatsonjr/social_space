@@ -83,7 +83,7 @@ function App() {
                 <Routes>
                   <Route path='/' element={<Home />} />
                   <Route path='/explore' element={<Explore spaces={spaces} users={users} />} />
-                  <Route path='/create' element={<Create setSpace={(space) => setSpaces([...spaces, space])} />} />
+                  <Route path='/create' element={<Create setSpaces={(space) => setSpaces([...spaces, space])} />} />
                   <Route path={`user/${user.username}`} element={<Profile />} />
                   <Route path={`user/:username`} element={<UserPage users={users} />} />
                   <Route path={`space/:title`} element={<SpacePage spaces={spaces} />} />
