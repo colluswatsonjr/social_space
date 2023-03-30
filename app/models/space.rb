@@ -1,5 +1,5 @@
 class Space < ApplicationRecord
-    validates :title, presence: true, uniqueness: true
+    validates :title, presence: true, uniqueness: { case_sensitive: true }
 
     belongs_to :creator, class_name: 'User'
     

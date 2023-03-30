@@ -13,6 +13,7 @@ import UserPage from './pages/UserPage';
 import SpacePage from './pages/SpacePage';
 import LoginRegister from './pages/LoginRegister';
 import PageNotFound from './pages/PageNotFound';
+import Explore from './pages/Explore';
 
 
 function App() {
@@ -74,13 +75,14 @@ function App() {
     <Container sx={{ textAlign: 'center' }}>
       <UserContext.Provider value={{ user, login, logout }}>
         <ErrorContext.Provider value={{ error, showError }}>
-          {error?<Alert severity="warning">{error.error}</Alert>:null}
+          {error ? <Alert severity="warning">{error.error}</Alert> : null}
           <Router>
             {user ?
               <>
                 <Navbar />
                 <Routes>
-                  <Route path='/' element={<Home spaces={spaces} users={users} />} />
+                  <Route path='/' element={<Home />} />
+                  <Route path='/explore' element={<Explore spaces={spaces} users={users} />} />
                   <Route path='/create' element={<Create setSpace={(space) => setSpaces([...spaces, space])} />} />
                   <Route path={`user/${user.username}`} element={<Profile />} />
                   <Route path={`user/:username`} element={<UserPage users={users} />} />
