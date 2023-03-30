@@ -61,10 +61,10 @@ const EditForm = () => {
                             <TextField label="Bio" name="bio" value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })} />
                         </Grid>
                         <Grid item>
-                            <TextField label="Password" name="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+                            <TextField label="Password" name="password" type='password' value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
                         </Grid>
                         <Grid item>
-                            <TextField label="Password Confirmation" name="password confirmation" value={form.password_confirmation} onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })} />
+                            <TextField label="Password Confirmation" type='password' name="password confirmation" value={form.password_confirmation} onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })} />
                         </Grid>
                         <Grid item>
                             <Button type="submit" variant="contained" color="primary">Update</Button>

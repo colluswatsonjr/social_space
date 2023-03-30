@@ -43,10 +43,10 @@ const RegisterForm = () => {
                     <TextField label="Last Name" name="last name" value={form.lname} onChange={(e) => setForm({ ...form, lname: e.target.value })} />
                 </Grid>
                 <Grid item>
-                    <TextField label="Password" name="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
+                    <TextField label="Password" name="password" type='password' value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
                 </Grid>
                 <Grid item>
-                    <TextField label="Password Confirmation" name="password confirmation" value={form.password_confirmation} onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })} required />
+                    <TextField label="Password Confirmation" type='password' name="password confirmation" value={form.password_confirmation} onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })} required />
                 </Grid>
                 <Grid item>
                     <Button type="submit" variant="contained" color="primary">Register</Button>

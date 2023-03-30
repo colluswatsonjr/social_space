@@ -36,7 +36,7 @@ const LoginForm = () => {
                     <TextField label="Username" name="username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} required />
                 </Grid>
                 <Grid item>
-                    <TextField label="Password" name="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
+                    <TextField label="Password" name="password" type='password' value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
                 </Grid>
                 <br/>
                 <Grid item>
