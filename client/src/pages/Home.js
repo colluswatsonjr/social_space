@@ -35,9 +35,6 @@ const Home = () => {
                 <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => navigate(`/user/${post.user.username}`)}>{post.user.username}</Typography>
                 <Typography variant="body2">{post.text}</Typography>
               </CardContent>
-              <CardActions>
-                {post.user.id === user.id ? <Button onClick={null}> Remove </Button> : null}
-              </CardActions>
             </Card>
           </Grid>
         ))}
