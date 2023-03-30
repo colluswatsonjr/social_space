@@ -2,8 +2,22 @@ class PostsController < ApplicationController
     before_action :authorize
 
     def index
-        posts = Post.all
-        render json: posts
+        # posts = User.find(session[:user_id]).posts
+        posts = []
+        User.find(session[:user_id]).followees.each do |x|
+            x.posts.each do |post|
+                posts << post
+            end
+        end
+        User.find(session[:user_id]).spaces.each do |x|
+            x.posts.each do |post|
+                posts << post
+            end
+        end
+
+        # posts = Post.all
+        # posts = [mine, yours, alls]
+        render json: posts.uniq
     end
     def show
         post = Post.find(params[:id])
