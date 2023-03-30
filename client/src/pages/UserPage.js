@@ -11,15 +11,33 @@ const UserPage = ({users}) => {
     const { username } = useParams();
     const [user, setUser] = useState(null)
 
+    // useEffect(() => {
+    //     // const fetchUser = async () => {
+    //     //     const response = await fetch(`/find_user/${username}`);
+    //     //     const data = await response.json();
+    //     //     setUser(data);
+    //     // }
+    //     // fetchUser();
+    //     const find = users.filter((user)=>user.username === username)
+    //     setUser(find[0])
+    // }, [username, users]);
+
     useEffect(() => {
-        // const fetchUser = async () => {
-        //     const response = await fetch(`/find_user/${username}`);
-        //     const data = await response.json();
-        //     setUser(data);
-        // }
+        // Fetch user data based on username
+        const find = async () => {
+            const response = await users.filter((user)=>user.username === username);
+            setUser(response[0])
+            // setPosts(response[0].posts)
+            // setPosts[response[0]]
+            // const data = await response.json();
+            // setSpace(data);
+            // setPosts(data.posts)
+        }
+        find()
         // fetchUser();
-        const find = users.filter((user)=>user.username === username)
-        setUser(find[0])
+        // const find = spaces.filter((space)=>space.title === title)
+        // setSpace(find[0])
+        // setPosts(find[0].posts)
     }, [username, users]);
 
     function handleRemove(x) {

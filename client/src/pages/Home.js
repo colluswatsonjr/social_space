@@ -24,8 +24,6 @@ const Home = () => {
       })
   }, [user])
 
-  console.log(user)
-  console.log(posts)
   return (
     <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>

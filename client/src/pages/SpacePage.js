@@ -14,19 +14,24 @@ const SpacePage = ({spaces}) => {
 
     useEffect(() => {
         // Fetch user data based on username
-        // const fetchUser = async () => {
-        //     const response = await fetch(`/find_space/${title}`);
-        //     const data = await response.json();
-        //     setSpace(data);
-        //     setPosts(data.posts)
-        // }
+        const find = async () => {
+            const response = await spaces.filter((space)=>space.title === title);
+            setSpace(response[0])
+            setPosts(response[0].posts)
+            // setPosts[response[0]]
+            // const data = await response.json();
+            // setSpace(data);
+            // setPosts(data.posts)
+        }
+        find()
         // fetchUser();
-        const find = spaces.filter((space)=>space.title === title)
-        setSpace(find[0])
-        setPosts(find[0].posts)
+        // const find = spaces.filter((space)=>space.title === title)
+        // setSpace(find[0])
+        // setPosts(find[0].posts)
     }, [title, spaces]);
 
-
+    console.log(space)
+    
     function addPost(x) {
         // setSpace({ ...space, posts: [...space.posts, x] })
         setPosts([...posts,x])
