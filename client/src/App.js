@@ -117,6 +117,29 @@ function App() {
     deletePost(postId)
   }
 
+  function addSub(sub, spaceId){
+    const updatedSpaces = spaces.map((space)=>{
+      if(space.id === spaceId){
+        return ({...space, subscribes:[...space.subscribes, sub]})
+      }else{
+        return space
+      }
+    })
+    setSpaces(updatedSpaces)
+  }
+
+  function removeSub(sub, spaceId){
+    const updatedSpaces = spaces.map((space)=>{
+      if(space.id === spaceId){
+        const updatedSubs = space.subscribes.filter(x => x.id !== sub.id);
+        return({...space, subscribes: updatedSubs})
+      }else{
+        return space
+      }
+    })
+    setSpaces(updatedSpaces)
+  }
+
   return (
     <Container sx={{ textAlign: 'center' }}>
       <UserContext.Provider value={{ my, login, logout }}>
@@ -144,7 +167,11 @@ function App() {
                       element={<SpacePage 
                         space={space} 
                         handleRemovePost={(postId, spaceId, newArr) => handleRemovePost(postId, spaceId, newArr)}
-                        handleAddPost={(spaceId, newArr)=>handleAddPost(spaceId, newArr)} />}
+                        handleAddPost={(spaceId, newArr)=>handleAddPost(spaceId, newArr)} 
+                        addSub={addSub}
+                        removeSub={removeSub}
+                        />
+                      }
                     />
                   ))}
                   <Route path='*' element={<PageNotFound />} />

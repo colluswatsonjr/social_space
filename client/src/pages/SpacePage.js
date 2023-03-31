@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
 import { ErrorContext } from "../context/ErrorContext";
 
-const SpacePage = ({ spaces, space, handleRemovePost, handleAddPost }) => {
+const SpacePage = ({ spaces, space, handleRemovePost, handleAddPost, removeSub, addSub }) => {
     let navigate = useNavigate()
     const { my, login } = useContext(UserContext);
     const { showError } = useContext(ErrorContext); // Importing the showError function from ErrorContext.
@@ -17,24 +17,23 @@ const SpacePage = ({ spaces, space, handleRemovePost, handleAddPost }) => {
 
     function onRemovePost(postId) {
         const updatedPosts = posts.filter(post => post.id !== postId);
+        setPosts(updatedPosts);
         const userPosts = my.posts.filter(post=> post.id !== postId)
         login({...my, posts: userPosts})
-        setPosts(updatedPosts);
         handleRemovePost(postId, space.id, updatedPosts)
     }
     function onAddPost(post){
         setPosts([...posts, post])
-        login({...my, posts: [...posts, post]})
+        login({...my, posts: [...my.posts, post]})
         handleAddPost(space.id, [...posts, post] )
     }
 
     function handleSub(x) {
-        // setSpace({ ...space, subscribes: [...space.subscribes, x] })
+        addSub(x, space.id)
     }
 
     function handleUnsub(x) {
-        const edit = space.subscribes.filter((space) => space.id !== x.id)
-        // setSpace({ ...space, subscribes: edit })
+        removeSub(x, space.id)
     }
 
     if (space) {
@@ -55,8 +54,8 @@ const SpacePage = ({ spaces, space, handleRemovePost, handleAddPost }) => {
                     </CardActions>
                 </Card>
                 <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <CreatePost spaceId={space.id} addPost={(post)=>onAddPost(post)} />
                     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        <CreatePost spaceId={space.id} addPost={(post)=>onAddPost(post)} />
                         {posts.map(post => (
                             <Grid item xs={2} sm={4} md={4} key={post.id}>
                                 <Card sx={{ minWidth: 275 }}>
