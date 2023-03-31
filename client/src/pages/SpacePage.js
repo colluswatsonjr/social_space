@@ -1,83 +1,81 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useContext, useState } from "react";
 import CreatePost from "../components/CreatePost";
 import PostsGrid from "../components/PostsGrid";
 
-import { Grid, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Grid, Button, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import SubscribeButton from "../components/SubscribeButton";
+import { useNavigate } from "react-router";
+import { UserContext } from "../context/UserContext";
+import { ErrorContext } from "../context/ErrorContext";
 
-const SpacePage = ({spaces}) => {
+const SpacePage = ({ spaces, space, handleRemovePost, handleAddPost }) => {
+    let navigate = useNavigate()
+    const { my, login } = useContext(UserContext);
+    const { showError } = useContext(ErrorContext); // Importing the showError function from ErrorContext.
 
-    const { title } = useParams();
-    const [space, setSpace] = useState(null)
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState(space.posts);
 
-    useEffect(() => {
-        // Fetch user data based on username
-        const find = async () => {
-            const response = await spaces.filter((space)=>space.title === title);
-            setSpace(response[0])
-            setPosts(response[0].posts)
-            // setPosts[response[0]]
-            // const data = await response.json();
-            // setSpace(data);
-            // setPosts(data.posts)
-        }
-        find()
-        // fetchUser();
-        // const find = spaces.filter((space)=>space.title === title)
-        // setSpace(find[0])
-        // setPosts(find[0].posts)
-    }, [title, spaces]);
-
-    console.log(space)
-    
-    function addPost(x) {
-        // setSpace({ ...space, posts: [...space.posts, x] })
-        setPosts([...posts,x])
+    function onRemovePost(postId) {
+        const updatedPosts = posts.filter(post => post.id !== postId);
+        const userPosts = my.posts.filter(post=> post.id !== postId)
+        login({...my, posts: userPosts})
+        setPosts(updatedPosts);
+        handleRemovePost(postId, space.id, updatedPosts)
     }
-
-    function handleEditPosts(x) {
-        const edit = posts.filter((post) => post.id !== x)
-        setPosts(edit)
+    function onAddPost(post){
+        setPosts([...posts, post])
+        login({...my, posts: [...posts, post]})
+        handleAddPost(space.id, [...posts, post] )
     }
 
     function handleSub(x) {
-        setSpace({ ...space, subscribes: [...space.subscribes, x] })
+        // setSpace({ ...space, subscribes: [...space.subscribes, x] })
     }
 
     function handleUnsub(x) {
         const edit = space.subscribes.filter((space) => space.id !== x.id)
-        setSpace({ ...space, subscribes: edit })
+        // setSpace({ ...space, subscribes: edit })
     }
 
-    return (
-        <Grid item>
-            {space ? (
-                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column' }}>
-                    <Card>
-                        <CardContent>
-                            <Typography variant="h5" component="h2">
-                                {space.title}
-                            </Typography>
-                            <Typography variant="body2" component="p">
-                                {space.bio}
-                            </Typography>
-                            <Typography variant="body2">{space.subscribes.length} subscribers</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <SubscribeButton spaceId={space.id} space={space} onSub={(x) => handleSub(x)} onUnsub={(x) => handleUnsub(x)} />
-                        </CardActions>
-                    </Card>
-                        <CreatePost spaceId={space.id} addPost={addPost} />
-                        <PostsGrid posts={posts} editPosts={handleEditPosts}/>
+    if (space) {
+        return (
+            <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column' }}>
+                <Card>
+                    <CardContent>
+                        <Typography variant="h5" component="h2">
+                            {space.title}
+                        </Typography>
+                        <Typography variant="body2" component="p">
+                            {space.bio}
+                        </Typography>
+                        <Typography variant="body2">{space.subscribes.length} subscribers</Typography>
+                    </CardContent>
+                    <CardActions>
+                        <SubscribeButton spaceId={space.id} space={space} onSub={(x) => handleSub(x)} onUnsub={(x) => handleUnsub(x)} />
+                    </CardActions>
+                </Card>
+                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                        <CreatePost spaceId={space.id} addPost={(post)=>onAddPost(post)} />
+                        {posts.map(post => (
+                            <Grid item xs={2} sm={4} md={4} key={post.id}>
+                                <Card sx={{ minWidth: 275 }}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="div" onClick={() => navigate(`/space/${post.space.title}`)}>{post.space.title}</Typography>
+                                        <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => navigate(`/user/${post.user.username}`)}>{post.user.username}</Typography>
+                                        <Typography variant="body2">{post.text}</Typography>
+                                    </CardContent>
+                                </Card>
+                                <CardActions>
+                                    {post.user.id === my.id ? <Button onClick={() => onRemovePost(post.id)}> Remove </Button> : null}
+                                </CardActions>
+                            </Grid>
+                        ))}
+                    </Grid>
                 </Box>
-
-            ) : (
-                <Typography>Loading space...</Typography>
-            )}
-        </Grid>
-    );
+            </Box>
+        )
+    }
 }
 
 export default SpacePage;

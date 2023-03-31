@@ -6,18 +6,18 @@ import { ErrorContext } from "../context/ErrorContext";
 
 const SubscribeButton = ({ spaceId, space, onSub, onUnsub }) => {
     const { showError } = useContext(ErrorContext)
-    const { user } = useContext(UserContext);
+    const { my } = useContext(UserContext);
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [subId, setSubId] = useState(null)
 
     useEffect(() => {
         space.subscribes.forEach((x) => {
-            if (x.user_id === user.id) {
+            if (x.user_id === my.id) {
                 setSubId(x.id)
                 return setIsSubscribed(true)
             }
         })
-    }, [user, space]);
+    }, [my, space]);
 
     function handleSubscribe() {
         setIsSubscribed(true)

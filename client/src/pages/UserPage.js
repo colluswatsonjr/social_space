@@ -1,87 +1,77 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useContext, useState } from "react";
 import FollowButton from "../components/FollowButton";
 import PostsGrid from "../components/PostsGrid";
 import UserFollowers from "../components/UserFollowers";
 
-import { Box, Grid, Card, CardContent, CardActions, Typography } from '@mui/material';
+import { Box, Button, Grid, Card, CardContent, CardActions, Typography } from '@mui/material';
+import { useNavigate } from "react-router";
+import { UserContext } from "../context/UserContext";
 
-const UserPage = ({users}) => {
+const UserPage = ({ user, users, onRemovePost }) => {
 
-    const { username } = useParams();
-    const [user, setUser] = useState(null)
+    let navigate = useNavigate()
 
-    // useEffect(() => {
-    //     // const fetchUser = async () => {
-    //     //     const response = await fetch(`/find_user/${username}`);
-    //     //     const data = await response.json();
-    //     //     setUser(data);
-    //     // }
-    //     // fetchUser();
-    //     const find = users.filter((user)=>user.username === username)
-    //     setUser(find[0])
-    // }, [username, users]);
+    const { my } = useContext(UserContext);
 
-    useEffect(() => {
-        // Fetch user data based on username
-        const find = async () => {
-            const response = await users.filter((user)=>user.username === username);
-            setUser(response[0])
-            // setPosts(response[0].posts)
-            // setPosts[response[0]]
-            // const data = await response.json();
-            // setSpace(data);
-            // setPosts(data.posts)
-        }
-        find()
-        // fetchUser();
-        // const find = spaces.filter((space)=>space.title === title)
-        // setSpace(find[0])
-        // setPosts(find[0].posts)
-    }, [username, users]);
+    const [posts, setPosts] = useState(user.posts);
+    const [followers, setFollowers] = useState(user.followers)
+    const [following, setFollowing] = useState(user.followees)
 
-    function handleRemove(x) {
-        const edit = user.followers.filter((user) => user.id !== x.id)
-        setUser({ ...user, followers: edit })
+    async function handlePostRemove(postId) {
+        const updatedPosts = posts.filter(post => post.id !== postId);
+        setPosts(updatedPosts);
+
+        await onRemovePost(user.id, postId);
+    }
+
+    function handleRemove(y) {
+        const updatedFollowers = user.followers.filter((follow) => follow.id !== y)
+        setFollowers(updatedFollowers)
     }
 
     function handleAdd(x) {
-        setUser({ ...user, followers: [...user.followers, x] })
+        setFollowers([...user.followers, x])
     }
 
-    function handleEdit(x) {
-        const edit = user.posts.filter((post) => post.id !== x.id)
-        setUser({ ...user, posts: edit })
-    }
+    if (user) {
+        return (
+            <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column' }}>
+                <Card>
+                    <CardContent>
+                        <Typography color="textSecondary" gutterBottom>
+                            {user.fname} {user.lname}
+                        </Typography>
+                        <Typography variant="h5" component="h2">
+                            {user.username}
+                        </Typography>
+                        <Typography variant="body2" component="p">
+                            {user.bio}
+                        </Typography>
+                        {followers && following ? <p><strong>{followers.length}</strong> followers<br /><strong>{following.length}</strong> following</p> : null}
 
-    return (
-        <Grid item>
-            {user ? (
-                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column' }}>
-                    <Card>
-                        <CardContent>
-                            <Typography color="textSecondary" gutterBottom>
-                                {user.fname} {user.lname}
-                            </Typography>
-                            <Typography variant="h5" component="h2">
-                                {user.username}
-                            </Typography>
-                            <Typography variant="body2" component="p">
-                                {user.bio}
-                            </Typography>
-                            <UserFollowers followees={user.followees} followers={user.followers} />
-                        </CardContent>
-                        <CardActions>
-                            <FollowButton accountId={user.id} onAdd={handleAdd} onRemove={handleRemove} />
-                        </CardActions>
-                    </Card>
-                    <PostsGrid posts={user.posts} onEdit={handleEdit} />
+                    </CardContent>
+                    <CardActions>
+                        <FollowButton accountId={user.id} onAdd={handleAdd} onRemove={handleRemove} />
+                    </CardActions>
+                </Card>
+                <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                        {user.posts.map(post => (
+                            <Grid item xs={2} sm={4} md={4} key={post.id}>
+                                <Card sx={{ minWidth: 275 }}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="div" onClick={() => navigate(`/space/${post.space.title}`)}>{post.space.title}</Typography>
+                                        <Typography sx={{ mb: 1.5 }} color="text.secondary" onClick={() => navigate(`/user/${post.user.username}`)}>{post.user.username}</Typography>
+                                        <Typography variant="body2">{post.text}</Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        ))}
+                    </Grid>
                 </Box>
-            ) : (
-                <p>Loading user...</p>
-            )}
-        </Grid>
-    );
+            </Box>
+        )
+    }
 }
 
 export default UserPage;

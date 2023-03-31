@@ -23,7 +23,7 @@ const CreatePost = ({ spaceId, addPost }) => {
             .then(r => r.json())
             .then(post => {
                 addPost(post)
-                login({ ...user, posts: [...user.posts, post] })
+                // login({ ...user, posts: [...user.posts, post] })
             })
             .catch(error => showError(error))
 

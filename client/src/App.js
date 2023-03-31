@@ -17,11 +17,11 @@ import PageNotFound from './pages/PageNotFound';
 
 function App() {
   const [error, setError] = useState({})
-  const [user, setUser] = useState({})
+  const [my, setMy] = useState({})
   const [users, setUsers] = useState([])
   const [spaces, setSpaces] = useState([])
   const [posts, setPosts] = useState([])
-  
+
   const showError = (error) => {
     setError(error)
   };
@@ -40,7 +40,7 @@ function App() {
     fetch('/me')
       .then((r) => {
         if (r.ok) {
-          r.json().then((user) => setUser(user))
+          r.json().then((user) => setMy(user))
         } else {
           r.json().then((error) => showError(error))
         }
@@ -61,7 +61,7 @@ function App() {
           r.json().then((error) => showError(error))
         }
       })
-      fetch('/posts')
+    fetch('/posts')
       .then((r) => {
         if (r.ok) {
           r.json().then((posts) => setPosts(posts))
@@ -72,28 +72,64 @@ function App() {
   }, [])
 
   const login = (user) => {
-    setUser(user)
+    setMy(user)
   };
 
   const logout = () => {
-    setUser(null)
+    setMy(null)
   };
+
+  function deletePost(postId){
+    fetch(`/posts/${postId}`, {
+      method: "DELETE",
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((data) => console.log(data))
+      } else {
+        r.json().then((error) => showError(error))
+      }
+    });
+  }
+
+  function handleRemovePost(postId, spaceId, newArr) {
+    deletePost(postId)
+    const updateSpaces = spaces.map((space) => {
+      if (space.id === spaceId) {
+        return ({ ...space, posts: newArr })
+      } else {
+        return space
+      }
+    })
+    setSpaces(updateSpaces)
+  }
+  function handleAddPost(spaceId, newArr){
+    const updateSpaces = spaces.map((space) => {
+      if (space.id === spaceId) {
+        return ({ ...space, posts: newArr })
+      } else {
+        return space
+      }
+    })
+    setSpaces(updateSpaces)
+  }
+
+  function removeUserPost(postId){
+    deletePost(postId)
+  }
 
   return (
     <Container sx={{ textAlign: 'center' }}>
-      <UserContext.Provider value={{ user, login, logout }}>
+      <UserContext.Provider value={{ my, login, logout }}>
         <ErrorContext.Provider value={{ error, showError }}>
           {error ? <Alert severity="warning">{error.error}</Alert> : null}
           <Router>
-            {user ?
+            {my ?
               <>
                 <Navbar />
                 <Routes>
                   <Route path='/' element={<Home />} />
                   <Route path='/create' element={<Create setSpaces={(space) => setSpaces([...spaces, space])} />} />
-                  <Route path={`user/${user.username}`} element={<Profile />} />
-                  {/* <Route path={`user/:username`} element={<UserPage users={users} />} /> */}
-                  {/* <Route path={`space/:title`} element={<SpacePage spaces={spaces} />} /> */}
+                  <Route path={`user/${my.username}`} element={<Profile removeUserPost={(postId)=>removeUserPost(postId)} />} />
                   {users.map(user => (
                     <Route
                       key={user.id}
@@ -105,10 +141,10 @@ function App() {
                     <Route
                       key={space.id}
                       path={`/space/${space.title}`}
-                      element={<SpacePage space={space} removePost={(id)=>{
-                        let filter = posts.filter((post)=>post.id !== id)
-                        setPosts(filter)
-                      }}/>}
+                      element={<SpacePage 
+                        space={space} 
+                        handleRemovePost={(postId, spaceId, newArr) => handleRemovePost(postId, spaceId, newArr)}
+                        handleAddPost={(spaceId, newArr)=>handleAddPost(spaceId, newArr)} />}
                     />
                   ))}
                   <Route path='*' element={<PageNotFound />} />

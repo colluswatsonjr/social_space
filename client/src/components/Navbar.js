@@ -12,7 +12,7 @@ import { ErrorContext } from "../context/ErrorContext";
 
 const Navbar = () => {
     const { showError } = useContext(ErrorContext)
-    const { user, logout } = useContext(UserContext);
+    const { my, logout } = useContext(UserContext);
 
     let navigate = useNavigate()
 
@@ -35,7 +35,7 @@ const Navbar = () => {
                 </IconButton>
                 <Button color="inherit" component={Link} to="/" sx={{ mr: 2 }}>HOME</Button>
                 <Button color="inherit" component={Link} to="/create" sx={{ mr: 2 }}>CREATE</Button>
-                <Button color="inherit" component={Link} to={`/user/${user.username}`} sx={{ mr: 'auto' }}>PROFILE</Button>
+                <Button color="inherit" component={Link} to={`/user/${my.username}`} sx={{ mr: 'auto' }}>PROFILE</Button>
                 <Button color="inherit" onClick={()=>handleLogout()}>Logout</Button>
             </Toolbar>
         </AppBar>

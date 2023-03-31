@@ -6,17 +6,17 @@ import { ErrorContext } from "../context/ErrorContext";
 
 const FollowButton = ({ accountId, onAdd, onRemove }) => {
   const { showError } = useContext(ErrorContext)
-  const { user, login } = useContext(UserContext);
+  const { my, login } = useContext(UserContext);
 
   const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
-    user.followees.forEach((x) => {
+    my.followees.forEach((x) => {
       if (x.id === accountId) {
         return setIsFollowing(true)
       }
     })
-  }, [user, accountId]);
+  }, [my, accountId]);
 
   function handleFollow() {
     setIsFollowing(true)
@@ -26,8 +26,11 @@ const FollowButton = ({ accountId, onAdd, onRemove }) => {
     })
       .then((r) => {
         if (r.ok) {
-          r.json().then((user) => login(user))
-          onAdd(user)
+          r.json().then((user) => {
+            login(user)
+            onAdd(user)
+          })
+
         } else {
           r.json().then((error) => showError(error))
         }
@@ -41,10 +44,12 @@ const FollowButton = ({ accountId, onAdd, onRemove }) => {
     })
       .then((r) => {
         if (r.ok) {
-          r.json().then((user) => login(user))
-          onRemove(user)
+          r.json().then((user) => {
+            login(user)
+            onRemove(user)
+          })
         } else {
-          r.json().then((error) => showError( error))
+          r.json().then((error) => showError(error))
         }
       })
   }
