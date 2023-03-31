@@ -12,6 +12,9 @@ const Home = () => {
   let navigate = useNavigate()
 
   const [posts, setPosts] = useState([])
+  const [showFollowedPosts, setShowFollowedPosts] = useState(false);
+
+  // const filteredPosts = showFollowedPosts ? posts.filter((post) => followedUsers.includes(post.author)) : posts;
 
   useEffect(() => {
     fetch('/posts')
@@ -26,6 +29,9 @@ const Home = () => {
 
   return (
     <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Button onClick={() => setShowFollowedPosts(!showFollowedPosts)}>
+        {showFollowedPosts ? "Show all posts" : "Show following posts"}
+      </Button>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {posts.map(post => (
           <Grid item xs={2} sm={4} md={4} key={post.id}>

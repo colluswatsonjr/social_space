@@ -34,7 +34,6 @@ const Navbar = () => {
                     Social Space
                 </IconButton>
                 <Button color="inherit" component={Link} to="/" sx={{ mr: 2 }}>HOME</Button>
-                <Button color="inherit" component={Link} to="/explore" sx={{ mr: 2 }}>EXPLORE</Button>
                 <Button color="inherit" component={Link} to="/create" sx={{ mr: 2 }}>CREATE</Button>
                 <Button color="inherit" component={Link} to={`/user/${user.username}`} sx={{ mr: 'auto' }}>PROFILE</Button>
                 <Button color="inherit" onClick={()=>handleLogout()}>Logout</Button>

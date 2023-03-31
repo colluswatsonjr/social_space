@@ -13,15 +13,15 @@ import UserPage from './pages/UserPage';
 import SpacePage from './pages/SpacePage';
 import LoginRegister from './pages/LoginRegister';
 import PageNotFound from './pages/PageNotFound';
-import Explore from './pages/Explore';
 
 
 function App() {
-  const [error, setError] = useState(null)
-  const [user, setUser] = useState(null)
-  const [users, setUsers] = useState(null)
-  const [spaces, setSpaces] = useState(null)
-
+  const [error, setError] = useState({})
+  const [user, setUser] = useState({})
+  const [users, setUsers] = useState([])
+  const [spaces, setSpaces] = useState([])
+  const [posts, setPosts] = useState([])
+  
   const showError = (error) => {
     setError(error)
   };
@@ -61,6 +61,14 @@ function App() {
           r.json().then((error) => showError(error))
         }
       })
+      fetch('/posts')
+      .then((r) => {
+        if (r.ok) {
+          r.json().then((posts) => setPosts(posts))
+        } else {
+          r.json().then((error) => showError(error))
+        }
+      })
   }, [])
 
   const login = (user) => {
@@ -82,11 +90,27 @@ function App() {
                 <Navbar />
                 <Routes>
                   <Route path='/' element={<Home />} />
-                  <Route path='/explore' element={<Explore spaces={spaces} users={users} />} />
                   <Route path='/create' element={<Create setSpaces={(space) => setSpaces([...spaces, space])} />} />
                   <Route path={`user/${user.username}`} element={<Profile />} />
-                  <Route path={`user/:username`} element={<UserPage users={users} />} />
-                  <Route path={`space/:title`} element={<SpacePage spaces={spaces} />} />
+                  {/* <Route path={`user/:username`} element={<UserPage users={users} />} /> */}
+                  {/* <Route path={`space/:title`} element={<SpacePage spaces={spaces} />} /> */}
+                  {users.map(user => (
+                    <Route
+                      key={user.id}
+                      path={`/user/${user.username}`}
+                      element={<UserPage user={user} />}
+                    />
+                  ))}
+                  {spaces.map(space => (
+                    <Route
+                      key={space.id}
+                      path={`/space/${space.title}`}
+                      element={<SpacePage space={space} removePost={(id)=>{
+                        let filter = posts.filter((post)=>post.id !== id)
+                        setPosts(filter)
+                      }}/>}
+                    />
+                  ))}
                   <Route path='*' element={<PageNotFound />} />
                 </Routes>
               </>
