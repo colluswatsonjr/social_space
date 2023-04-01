@@ -17,7 +17,7 @@ const SubscribeButton = ({ spaceId, space, onSub, onUnsub }) => {
                 return setIsSubscribed(true)
             }
         })
-    }, [my, space]);
+    }, [my, spaceId]);
 
     function handleSubscribe() {
         setIsSubscribed(true)

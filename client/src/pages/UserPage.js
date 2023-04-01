@@ -7,30 +7,25 @@ import { Box, Button, Grid, Card, CardContent, CardActions, Typography } from '@
 import { useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
 
-const UserPage = ({ user, users, onRemovePost }) => {
+const UserPage = ({ user, updateUser }) => {
 
     let navigate = useNavigate()
 
-    const { my } = useContext(UserContext);
+    const { my, login } = useContext(UserContext);
 
     const [posts, setPosts] = useState(user.posts);
     const [followers, setFollowers] = useState(user.followers)
     const [following, setFollowing] = useState(user.followees)
 
-    async function handlePostRemove(postId) {
-        const updatedPosts = posts.filter(post => post.id !== postId);
-        setPosts(updatedPosts);
-
-        await onRemovePost(user.id, postId);
-    }
-
     function handleRemove(y) {
-        const updatedFollowers = user.followers.filter((follow) => follow.id !== y)
+        const updatedFollowers = followers.filter((follow) => follow.id !== y.id)
         setFollowers(updatedFollowers)
+        updateUser({...user, followers: updatedFollowers}, user.id)
     }
 
     function handleAdd(x) {
         setFollowers([...user.followers, x])
+        updateUser({...user, followers:[...followers, x]}, user.id)
     }
 
     if (user) {
@@ -48,7 +43,6 @@ const UserPage = ({ user, users, onRemovePost }) => {
                             {user.bio}
                         </Typography>
                         {followers && following ? <p><strong>{followers.length}</strong> followers<br /><strong>{following.length}</strong> following</p> : null}
-
                     </CardContent>
                     <CardActions>
                         <FollowButton accountId={user.id} onAdd={handleAdd} onRemove={handleRemove} />

@@ -16,7 +16,7 @@ import PageNotFound from './pages/PageNotFound';
 
 
 function App() {
-  const [error, setError] = useState({})
+  const [error, setError] = useState(null)
   const [my, setMy] = useState({})
   const [users, setUsers] = useState([])
   const [spaces, setSpaces] = useState([])
@@ -140,6 +140,17 @@ function App() {
     setSpaces(updatedSpaces)
   }
 
+  function updateUser(newUser, userId){
+    const newUsers = users.map((x)=>{
+      if(x.id === userId){
+        return newUser
+      }else{
+        return x
+      }
+    })
+    setUsers(newUsers)
+  }
+
   return (
     <Container sx={{ textAlign: 'center' }}>
       <UserContext.Provider value={{ my, login, logout }}>
@@ -157,7 +168,7 @@ function App() {
                     <Route
                       key={user.id}
                       path={`/user/${user.username}`}
-                      element={<UserPage user={user} />}
+                      element={<UserPage user={user} updateUser={updateUser}/>}
                     />
                   ))}
                   {spaces.map(space => (

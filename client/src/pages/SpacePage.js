@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
 import { ErrorContext } from "../context/ErrorContext";
 
-const SpacePage = ({ spaces, space, handleRemovePost, handleAddPost, removeSub, addSub }) => {
+const SpacePage = ({ space, handleRemovePost, handleAddPost, removeSub, addSub }) => {
     let navigate = useNavigate()
     const { my, login } = useContext(UserContext);
     const { showError } = useContext(ErrorContext); // Importing the showError function from ErrorContext.
