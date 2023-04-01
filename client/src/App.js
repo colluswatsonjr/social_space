@@ -113,8 +113,18 @@ function App() {
     setSpaces(updateSpaces)
   }
 
-  function removeUserPost(postId){
+  function removeUserPost(postId, spaceId){
     deletePost(postId)
+    console.log('here', spaceId)
+    const updatedSpaces = spaces.map((space)=>{
+      if(space.id === spaceId){
+        const update = space.posts.filter((post)=>post.id !== postId)
+        return({...space, posts:update})
+      }else{
+        return space
+      }
+    })
+    setSpaces(updatedSpaces)
   }
 
   function addSub(sub, spaceId){
@@ -163,7 +173,7 @@ function App() {
                 <Routes>
                   <Route path='/' element={<Home />} />
                   <Route path='/create' element={<Create setSpaces={(space) => setSpaces([...spaces, space])} />} />
-                  <Route path={`user/${my.username}`} element={<Profile removeUserPost={(postId)=>removeUserPost(postId)} />} />
+                  <Route path={`user/${my.username}`} element={<Profile removeUserPost={(postId, spaceId)=>removeUserPost(postId, spaceId)} />} />
                   {users.map(user => (
                     <Route
                       key={user.id}

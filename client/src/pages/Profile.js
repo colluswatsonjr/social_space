@@ -18,11 +18,11 @@ const Profile = ({removeUserPost}) => {
         setPosts(my.posts)
     }, [my])
 
-    function onRemovePost(postId) {
+    function onRemovePost(postId, spaceId) {
         const edit = posts.filter((post) => post.id !== postId)
         setPosts(edit)
         login({...my, posts: edit})
-        removeUserPost(postId)
+        removeUserPost(postId, spaceId)
     }
 
     return (
@@ -65,7 +65,7 @@ const Profile = ({removeUserPost}) => {
                                             <Typography variant="body2">{post.text}</Typography>
                                         </CardContent>
                                         <CardActions>
-                                            <Button onClick={() => onRemovePost(post.id)}> Remove </Button>
+                                            <Button onClick={() => onRemovePost(post.id, post.space.id)}> Remove </Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>
