@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Button onClick={() => setShowFollowedPosts(!showFollowedPosts)}>
-        {showFollowedPosts ? "Show all posts" : "Show following posts"}
+        {/* {showFollowedPosts ? "Show all posts" : "Show following posts"} */}
       </Button>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {posts.map(post => (
