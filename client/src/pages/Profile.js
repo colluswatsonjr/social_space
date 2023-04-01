@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import EditForm from "../components/EditForm";
-import PostsGrid from "../components/PostsGrid";
 import { UserContext } from "../context/UserContext";
 
 import { Card, CardContent, CardActions, Button, Box, Typography, Grid } from '@mui/material';

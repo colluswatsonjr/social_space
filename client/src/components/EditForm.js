@@ -9,10 +9,10 @@ import { ErrorContext } from "../context/ErrorContext";
 const EditForm = () => {
     const { showError } = useContext(ErrorContext)
 
-    const { user, login, logout } = useContext(UserContext);
+    const { my, login, logout } = useContext(UserContext);
     const navigate = useNavigate();
 
-    const [form, setForm] = useState({ username: user.username, fname: user.fname, lname: user.lname, bio: user.bio, password: '', password_confirmation: '' })
+    const [form, setForm] = useState({ username: my.username, fname: my.fname, lname: my.lname, bio: my.bio, password: '', password_confirmation: '' })
 
     function handleRegister(e) {
         e.preventDefault()
@@ -45,7 +45,7 @@ const EditForm = () => {
     return (
         <div>
             <h2>User Edit Form</h2>
-            {user ?
+            {my ?
                 <form onSubmit={handleRegister}>
                     <Grid container spacing={2} direction="column">
                         <Grid item>

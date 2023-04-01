@@ -1,5 +1,4 @@
 import { useContext, useState } from "react"
-import { UserContext } from "../context/UserContext";
 
 import { Grid, TextField, Button } from '@mui/material';
 import { ErrorContext } from "../context/ErrorContext";
@@ -7,7 +6,6 @@ import { ErrorContext } from "../context/ErrorContext";
 const CreatePost = ({ spaceId, addPost }) => {
     const { showError } = useContext(ErrorContext)
 
-    const { user, login } = useContext(UserContext);
     const [form, setForm] = useState({ text: '' })
 
     function handleComment(e) {

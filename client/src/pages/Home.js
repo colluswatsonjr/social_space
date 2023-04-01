@@ -3,12 +3,12 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { ErrorContext } from '../context/ErrorContext';
 
-import { Box, Button, Grid, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Box, Button, Grid, Card, CardContent, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 
 const Home = () => {
   const { showError } = useContext(ErrorContext)
-  const { user } = useContext(UserContext);
+  const { my } = useContext(UserContext);
   let navigate = useNavigate()
 
   const [posts, setPosts] = useState([])
@@ -25,7 +25,7 @@ const Home = () => {
           r.json().then((error) => showError(error))
         }
       })
-  }, [user])
+  }, [my])
 
   return (
     <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

@@ -1,17 +1,14 @@
 import { useContext, useState } from "react";
 import CreatePost from "../components/CreatePost";
-import PostsGrid from "../components/PostsGrid";
 
 import { Grid, Button, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import SubscribeButton from "../components/SubscribeButton";
 import { useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
-import { ErrorContext } from "../context/ErrorContext";
 
 const SpacePage = ({ space, handleRemovePost, handleAddPost, removeSub, addSub }) => {
     let navigate = useNavigate()
     const { my, login } = useContext(UserContext);
-    const { showError } = useContext(ErrorContext); // Importing the showError function from ErrorContext.
 
     const [posts, setPosts] = useState(space.posts);
 

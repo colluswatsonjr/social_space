@@ -1,19 +1,13 @@
 import { useContext, useState } from "react";
 import FollowButton from "../components/FollowButton";
-import PostsGrid from "../components/PostsGrid";
-import UserFollowers from "../components/UserFollowers";
 
 import { Box, Button, Grid, Card, CardContent, CardActions, Typography } from '@mui/material';
 import { useNavigate } from "react-router";
-import { UserContext } from "../context/UserContext";
 
 const UserPage = ({ user, updateUser }) => {
 
     let navigate = useNavigate()
 
-    const { my, login } = useContext(UserContext);
-
-    const [posts, setPosts] = useState(user.posts);
     const [followers, setFollowers] = useState(user.followers)
     const [following, setFollowing] = useState(user.followees)
 

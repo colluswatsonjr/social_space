@@ -54,8 +54,6 @@ const FollowButton = ({ accountId, onAdd, onRemove }) => {
       })
   }
 
-
-
   if (isFollowing) {
     return <Button onClick={handleUnfollow}>Unfollow</Button>;
   } else {
