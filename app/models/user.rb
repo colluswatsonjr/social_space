@@ -1,6 +1,6 @@
 class User < ApplicationRecord
     has_secure_password
-    validates :username, presence: true, uniqueness: { case_sensitive: true }
+    validates :username, presence: true, uniqueness: { case_sensitive: false }
 
     has_many :followed_users, foreign_key: :follower_id, class_name: 'Follow'
     has_many :followees, through: :followed_users
